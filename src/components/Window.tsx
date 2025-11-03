@@ -1,31 +1,49 @@
 import { ReactNode, useState, useEffect } from "react";
 import Draggable from "react-draggable";
-import { X, Minus, Maximize2 } from "lucide-react";
+import { X, Minus, Maximize2, ChevronLeft, ChevronRight, Grid3x3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface WindowProps {
   title: string;
   children: ReactNode;
   onClose: () => void;
+  onMinimize?: () => void;
+  onFullscreen?: () => void;
   defaultPosition?: { x: number; y: number };
   zIndex?: number;
   onFocus?: () => void;
+  showToolbar?: boolean;
+  isFullscreen?: boolean;
 }
 
-export const Window = ({ 
-  title, 
-  children, 
-  onClose, 
+export const Window = ({
+  title,
+  children,
+  onClose,
+  onMinimize,
+  onFullscreen,
   defaultPosition = { x: 100, y: 50 },
   zIndex = 10,
-  onFocus
+  onFocus,
+  showToolbar = false,
+  isFullscreen = false
 }: WindowProps) => {
-  const [isMinimized, setIsMinimized] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     // Fade in animation
     setTimeout(() => setIsVisible(true), 10);
+
+    // Detect mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const handleClose = () => {
@@ -33,85 +51,100 @@ export const Window = ({
     setTimeout(onClose, 200);
   };
 
-  if (isMinimized) {
-    return null;
-  }
-
-  return (
-    <Draggable
-      handle=".window-header"
-      defaultPosition={defaultPosition}
-      bounds="parent"
-      onMouseDown={onFocus}
-    >
+  const WindowContent = (
       <div
         className={cn(
-          "absolute w-[95%] sm:w-[90%] md:w-[85%] max-w-2xl transition-all duration-300 pointer-events-auto",
+          "transition-all duration-300 pointer-events-auto",
+          isFullscreen
+            ? "fixed inset-0 w-full h-full rounded-none"
+            : isMobile
+            ? "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-2xl rounded-xl"
+            : "absolute w-[95%] sm:w-[90%] md:w-[85%] max-w-2xl rounded-xl",
           isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
         )}
-        style={{ zIndex }}
+        style={isFullscreen ? { zIndex, top: '24px', bottom: 0 } : { zIndex }}
       >
         {/* Classic Mac OS X Aqua Window with brushed metal */}
-        <div 
-          className="overflow-hidden rounded-xl border border-gray-400/60"
+        <div
+          className={cn("overflow-hidden border border-gray-400/60", isFullscreen ? "rounded-none h-full" : "rounded-xl")}
           style={{
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.1)',
+            boxShadow: '0 12px 48px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.15)',
             background: 'linear-gradient(180deg, hsl(210, 12%, 92%) 0%, hsl(210, 10%, 86%) 50%, hsl(210, 12%, 80%) 100%)',
+            height: isFullscreen ? '100%' : 'auto'
           }}
         >
-          {/* Classic Mac OS X Title Bar with brushed metal */}
-          <div 
-            className="window-header h-9 md:h-10 border-b border-gray-400/50 flex items-center justify-between px-3 md:px-4 cursor-move select-none relative"
+          {/* Classic Mac OS X Title Bar */}
+          <div
+            className={cn("window-header h-9 border-b border-gray-400/40 flex items-center justify-between px-3 select-none relative", !isFullscreen && !isMobile && "cursor-move")}
             style={{
-              background: 'linear-gradient(180deg, hsl(210, 15%, 94%) 0%, hsl(210, 12%, 88%) 50%, hsl(210, 10%, 82%) 100%)',
-              boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 1px 0 rgba(0, 0, 0, 0.1)'
+              background: 'linear-gradient(180deg, hsl(210, 15%, 95%) 0%, hsl(210, 12%, 89%) 50%, hsl(210, 10%, 83%) 100%)',
+              boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 0 rgba(0, 0, 0, 0.1)'
             }}
             onMouseDown={onFocus}
           >
-            {/* Classic Aqua Window Controls */}
-            <div className="flex items-center gap-1.5 md:gap-2">
+            {/* Classic Aqua Window Controls - Using Frutiger Aero style */}
+            <div className="flex items-center gap-2">
               <button
                 onClick={handleClose}
-                className="w-3 h-3 md:w-3.5 md:h-3.5 rounded-full transition-all relative group"
+                className="w-3 h-3 rounded-full transition-all relative group"
                 style={{
-                  background: 'linear-gradient(135deg, #FF6057 0%, #ED4E44 100%)',
-                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+                  background: 'radial-gradient(circle at 50% 90%, #fff8, transparent), linear-gradient(in oklch to right, oklch(from oklch(72% 0.25 25) calc(l * 0.75) c h), transparent, oklch(from oklch(72% 0.25 25) calc(l * 0.75) c h)), linear-gradient(in oklch to bottom, oklch(from oklch(72% 0.25 25) calc(l * 0.75) c h), oklch(72% 0.25 25))',
+                  border: '2px solid oklch(from oklch(72% 0.25 25) calc(l * 0.75) c h)',
+                  boxShadow: 'inset 0 0 5px color-mix(in oklch, oklch(72% 0.25 25), oklch(from oklch(72% 0.25 25) calc(l * 0.75) c h)), 0 1px 1px 1px rgba(255, 255, 255, 0.7), 0 -1px 1px 1px rgba(0, 0, 0, 0.5)'
                 }}
                 aria-label="Close"
               >
-                <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <X className="w-2 h-2 text-red-900" strokeWidth={2.5} />
+                <div className="absolute inset-0 rounded-full" style={{
+                  background: 'radial-gradient(ellipse 70% 30% at 50% 10%, #ffff 5%, #fff0 55%)'
+                }} />
+                <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+                  <X className="w-1.5 h-1.5 text-red-900" strokeWidth={3} />
                 </div>
               </button>
               <button
-                onClick={() => setIsMinimized(true)}
-                className="w-3 h-3 md:w-3.5 md:h-3.5 rounded-full transition-all relative group"
+                onClick={onMinimize}
+                className="w-3 h-3 rounded-full transition-all relative group"
                 style={{
-                  background: 'linear-gradient(135deg, #FFBD2E 0%, #F7A200 100%)',
-                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+                  background: 'radial-gradient(circle at 50% 90%, #fff8, transparent), linear-gradient(in oklch to right, oklch(from oklch(90% 0.17 82) calc(l * 0.75) c h), transparent, oklch(from oklch(90% 0.17 82) calc(l * 0.75) c h)), linear-gradient(in oklch to bottom, oklch(from oklch(90% 0.17 82) calc(l * 0.75) c h), oklch(90% 0.17 82))',
+                  border: '2px solid oklch(from oklch(90% 0.17 82) calc(l * 0.75) c h)',
+                  boxShadow: 'inset 0 0 5px color-mix(in oklch, oklch(90% 0.17 82), oklch(from oklch(90% 0.17 82) calc(l * 0.75) c h)), 0 1px 1px 1px rgba(255, 255, 255, 0.7), 0 -1px 1px 1px rgba(0, 0, 0, 0.5)'
                 }}
                 aria-label="Minimize"
               >
-                <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <Minus className="w-2 h-2 text-yellow-900" strokeWidth={2.5} />
+                <div className="absolute inset-0 rounded-full" style={{
+                  background: 'radial-gradient(ellipse 70% 30% at 50% 10%, #ffff 5%, #fff0 55%)'
+                }} />
+                <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+                  <Minus className="w-1.5 h-1.5 text-yellow-900" strokeWidth={3} />
                 </div>
               </button>
               <button
-                className="w-3 h-3 md:w-3.5 md:h-3.5 rounded-full transition-all relative group"
+                onClick={onFullscreen}
+                className="w-3 h-3 rounded-full transition-all relative group"
                 style={{
-                  background: 'linear-gradient(135deg, #29C940 0%, #20A034 100%)',
-                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+                  background: 'radial-gradient(circle at 50% 90%, #fff8, transparent), linear-gradient(in oklch to right, oklch(from oklch(85% 0.2 135) calc(l * 0.75) c h), transparent, oklch(from oklch(85% 0.2 135) calc(l * 0.75) c h)), linear-gradient(in oklch to bottom, oklch(from oklch(85% 0.2 135) calc(l * 0.75) c h), oklch(85% 0.2 135))',
+                  border: '2px solid oklch(from oklch(85% 0.2 135) calc(l * 0.75) c h)',
+                  boxShadow: 'inset 0 0 5px color-mix(in oklch, oklch(85% 0.2 135), oklch(from oklch(85% 0.2 135) calc(l * 0.75) c h)), 0 1px 1px 1px rgba(255, 255, 255, 0.7), 0 -1px 1px 1px rgba(0, 0, 0, 0.5)'
                 }}
-                aria-label="Maximize"
+                aria-label="Fullscreen"
               >
-                <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <Maximize2 className="w-2 h-2 text-green-900" strokeWidth={2.5} />
+                <div className="absolute inset-0 rounded-full" style={{
+                  background: 'radial-gradient(ellipse 70% 30% at 50% 10%, #ffff 5%, #fff0 55%)'
+                }} />
+                <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+                  <Maximize2 className="w-1.5 h-1.5 text-green-900" strokeWidth={3} />
                 </div>
               </button>
             </div>
 
             {/* Title */}
-            <div className="absolute left-1/2 -translate-x-1/2 text-xs md:text-sm font-medium text-gray-700" style={{ textShadow: '0 1px 0 rgba(255, 255, 255, 0.5)' }}>
+            <div
+              className="absolute left-1/2 -translate-x-1/2 text-[13px] font-semibold text-gray-700 tracking-tight"
+              style={{
+                textShadow: '0 1px 0 rgba(255, 255, 255, 0.6)',
+                fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+              }}
+            >
               {title}
             </div>
 
@@ -119,17 +152,77 @@ export const Window = ({
             <div className="w-16" />
           </div>
 
+          {/* Optional Toolbar */}
+          {showToolbar && (
+            <div
+              className="h-12 border-b border-gray-400/40 flex items-center px-3 gap-2"
+              style={{
+                background: 'linear-gradient(180deg, hsl(210, 12%, 90%) 0%, hsl(210, 10%, 84%) 100%)',
+                boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+              }}
+            >
+              {/* Navigation buttons */}
+              <div className="flex gap-1">
+                <button
+                  className="w-7 h-7 rounded flex items-center justify-center transition-all hover:bg-white/40"
+                  style={{
+                    background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%)',
+                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.7)'
+                  }}
+                >
+                  <ChevronLeft className="w-4 h-4 text-gray-700" strokeWidth={2} />
+                </button>
+                <button
+                  className="w-7 h-7 rounded flex items-center justify-center transition-all hover:bg-white/40"
+                  style={{
+                    background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%)',
+                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.7)'
+                  }}
+                >
+                  <ChevronRight className="w-4 h-4 text-gray-700" strokeWidth={2} />
+                </button>
+              </div>
+
+              {/* View options */}
+              <button
+                className="w-7 h-7 rounded flex items-center justify-center transition-all hover:bg-white/40 ml-auto"
+                style={{
+                  background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%)',
+                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.7)'
+                }}
+              >
+                <Grid3x3 className="w-4 h-4 text-gray-700" strokeWidth={2} />
+              </button>
+            </div>
+          )}
+
           {/* Content with brushed metal background */}
-          <div 
-            className="max-h-[60vh] md:max-h-[65vh] overflow-y-auto p-4 md:p-6 relative"
+          <div
+            className={cn("overflow-y-auto p-4 md:p-6 relative", isFullscreen ? "h-[calc(100vh-60px)]" : "max-h-[60vh] md:max-h-[65vh]")}
             style={{
-              background: 'linear-gradient(180deg, hsl(210, 8%, 96%) 0%, hsl(210, 6%, 92%) 100%)',
+              background: 'linear-gradient(180deg, hsl(210, 8%, 97%) 0%, hsl(210, 6%, 93%) 100%)',
             }}
           >
             {children}
           </div>
         </div>
       </div>
+  );
+
+  // For mobile or fullscreen: no dragging
+  if (isFullscreen || isMobile) {
+    return WindowContent;
+  }
+
+  // For desktop: enable dragging
+  return (
+    <Draggable
+      handle=".window-header"
+      defaultPosition={defaultPosition}
+      bounds="parent"
+      onMouseDown={onFocus}
+    >
+      {WindowContent}
     </Draggable>
   );
 };

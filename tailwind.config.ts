@@ -14,6 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
+        'sans': ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
         'luxurious': ['Luxurious Script', 'cursive'],
       },
       colors: {

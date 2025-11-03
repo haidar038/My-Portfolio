@@ -37,9 +37,65 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, children, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
-    return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />;
+
+    // Frutiger Aero style based on the CSS references
+    const getFrutigerStyle = () => {
+      if (variant === "default") {
+        return {
+          background: '#4a90e2',
+          borderRadius: '125px',
+          border: '1px solid #3672b6',
+          boxShadow: 'inset 0 13px 25px rgba(255, 255, 255, 0.5), 0 3px 5px rgba(0, 0, 0, 0.2), 0 10px 13px rgba(0, 0, 0, 0.1)',
+        };
+      } else if (variant === "destructive") {
+        return {
+          background: '#e74c3c',
+          borderRadius: '125px',
+          border: '1px solid #c0392b',
+          boxShadow: 'inset 0 13px 25px rgba(255, 255, 255, 0.5), 0 3px 5px rgba(0, 0, 0, 0.2), 0 10px 13px rgba(0, 0, 0, 0.1)',
+        };
+      } else if (variant === "secondary") {
+        return {
+          background: '#d0d0d0',
+          borderRadius: '125px',
+          border: '1px solid #b8b8b8',
+          boxShadow: 'inset 0 13px 25px rgba(255, 255, 255, 0.5), 0 3px 5px rgba(0, 0, 0, 0.2), 0 10px 13px rgba(0, 0, 0, 0.1)',
+        };
+      }
+      return {};
+    };
+
+    const hasFrutigerStyle = variant === "default" || variant === "destructive" || variant === "secondary";
+
+    return (
+      <Comp
+        className={cn(
+          buttonVariants({ variant, size, className }),
+          hasFrutigerStyle && "relative overflow-hidden hover:scale-[1.02] active:scale-[0.98] transition-transform text-white font-semibold"
+        )}
+        style={getFrutigerStyle()}
+        ref={ref}
+        {...props}
+      >
+        {/* Glossy overlay effect */}
+        {hasFrutigerStyle && (
+          <div
+            className="absolute pointer-events-none"
+            style={{
+              background: 'linear-gradient(rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%)',
+              borderRadius: '125px',
+              height: '50px',
+              left: '4%',
+              top: '1px',
+              width: '92%',
+            }}
+          />
+        )}
+        <span className={cn(hasFrutigerStyle && "relative z-10")}>{children}</span>
+      </Comp>
+    );
   },
 );
 Button.displayName = "Button";

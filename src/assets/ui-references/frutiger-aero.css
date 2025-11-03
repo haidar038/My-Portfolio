@@ -1,0 +1,84 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100dvh;
+}
+
+.traffic-lights {
+    --semaphore-bg: #e0e0e0;
+    --semaphore-highlight: color-mix(in lch, var(--semaphore-bg) 40%, white);
+    --semaphore-shadow: color-mix(in lch, var(--semaphore-bg) 60%, black);
+
+    display: flex;
+    gap: 1rem;
+
+    background: linear-gradient(to bottom, #f4f4f4, #d9d9d9);
+    box-shadow: 0 0px 1vmin #0003, 0 2px 0.5vmin #0003;
+    border: 1px solid #d9d9d9;
+    padding: 16px;
+    border-radius: 16px 16px 0 0;
+}
+
+.traffic-light {
+    --button-bg: gray;
+    --button-border: oklch(from var(--button-bg) calc(l * 0.75) c h);
+    --button-shadow: color-mix(in oklch, var(--button-bg), var(--button-border));
+
+    border-radius: 9999px;
+    background: radial-gradient(circle at 50% 90%, #fff8, transparent), linear-gradient(in oklch to right, var(--button-shadow), transparent, var(--button-shadow)), linear-gradient(in oklch to bottom, var(--button-shadow), var(--button-bg));
+    border: 2px solid var(--button-border);
+    box-shadow: inset 0 0 5px var(--button-shadow), 0 1px 1px 1px rgba(255, 255, 255, 0.7), 0 -1px 1px 1px rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    height: 48px;
+    width: 48px;
+
+    cursor: pointer;
+}
+
+.traffic-light::before {
+    content: "";
+
+    position: absolute;
+    left: 2%;
+    top: 2%;
+
+    width: 96%;
+    height: 96%;
+
+    background: radial-gradient(ellipse 70% 30% at 50% 10%, #ffff 5%, #fff0 55%);
+    border-radius: 9999px;
+}
+
+.traffic-light > iconify-icon {
+    color: var(--button-border);
+    opacity: 0;
+    transition: opacity 200ms;
+    font-size: 32px;
+    z-index: 1;
+}
+
+.traffic-light:hover > iconify-icon {
+    opacity: 1;
+}
+
+.traffic-light#close {
+    --button-bg: oklch(65% 0.25 25);
+}
+
+.traffic-light#minimize {
+    --button-bg: oklch(85% 0.17 82);
+}
+
+.traffic-light#maximize {
+    --button-bg: oklch(80% 0.2 135);
+}
