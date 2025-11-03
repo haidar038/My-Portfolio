@@ -8,68 +8,70 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Enhanced Frutiger Aero color scheme - glossy, vibrant, optimistic */
-    --background: 195 40% 92%;
-    --foreground: 210 25% 20%;
+    /* Classic Mac OS X Aqua color scheme - brushed metal, glossy */
+    --background: 210 15% 88%;
+    --foreground: 210 25% 15%;
 
-    --card: 0 0% 100%;
+    --card: 0 0% 98%;
     --card-foreground: 210 20% 15%;
 
-    --popover: 0 0% 100%;
+    --popover: 0 0% 96%;
     --popover-foreground: 210 20% 15%;
 
     /* Aqua blue primary - iconic Mac OS X color */
-    --primary: 195 85% 55%;
+    --primary: 205 85% 52%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 200 20% 85%;
+    --secondary: 210 15% 82%;
     --secondary-foreground: 210 20% 15%;
 
-    --muted: 200 15% 90%;
-    --muted-foreground: 210 15% 45%;
+    --muted: 210 12% 85%;
+    --muted-foreground: 210 15% 40%;
 
-    --accent: 195 75% 65%;
+    --accent: 205 75% 60%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 75% 55%;
+    --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 200 20% 80%;
-    --input: 200 20% 85%;
-    --ring: 195 85% 55%;
+    --border: 210 15% 75%;
+    --input: 210 12% 88%;
+    --ring: 205 85% 52%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    /* Window controls */
-    --window-close: 0 75% 55%;
-    --window-minimize: 45 90% 55%;
-    --window-maximize: 145 65% 45%;
+    /* Window controls - Classic Aqua colors */
+    --window-close: 0 68% 57%;
+    --window-minimize: 45 95% 52%;
+    --window-maximize: 145 60% 42%;
 
-    /* Glassmorphism */
-    --glass-bg: 0 0% 100%;
-    --glass-border: 200 30% 90%;
+    /* Brushed metal window */
+    --window-metal-light: 210 12% 90%;
+    --window-metal-dark: 210 15% 70%;
+    --window-stripe: 210 10% 85%;
     
-    /* Dock */
-    --dock-bg: 210 20% 25%;
-    --dock-indicator: 195 85% 55%;
+    /* Dock - Dark translucent */
+    --dock-bg: 210 25% 20%;
+    --dock-indicator: 205 85% 65%;
 
-    /* Enhanced Frutiger Aero Gradients */
-    --gradient-aqua: linear-gradient(135deg, hsl(195, 90%, 70%), hsl(190, 85%, 55%), hsl(185, 80%, 45%));
-    --gradient-window: linear-gradient(180deg, hsl(0, 0%, 100%), hsl(200, 40%, 97%));
-    --gradient-window-header: linear-gradient(180deg, hsl(200, 30%, 98%), hsl(200, 25%, 92%));
-    --gradient-subtle: linear-gradient(135deg, hsl(195, 50%, 96%), hsl(190, 45%, 93%));
-    --gradient-glossy: linear-gradient(135deg, hsla(0, 0%, 100%, 0.9), hsla(195, 100%, 95%, 0.7));
-    --gradient-button: linear-gradient(180deg, hsl(195, 80%, 65%), hsl(195, 75%, 55%));
+    /* Classic Aqua Gradients */
+    --gradient-aqua-button: linear-gradient(180deg, hsl(205, 95%, 68%) 0%, hsl(205, 90%, 58%) 50%, hsl(205, 85%, 48%) 100%);
+    --gradient-window-metal: linear-gradient(180deg, hsl(210, 12%, 92%) 0%, hsl(210, 10%, 86%) 50%, hsl(210, 12%, 80%) 100%);
+    --gradient-window-titlebar: linear-gradient(180deg, hsl(210, 15%, 94%) 0%, hsl(210, 12%, 88%) 50%, hsl(210, 10%, 82%) 100%);
+    --gradient-glossy-overlay: linear-gradient(180deg, hsla(0, 0%, 100%, 0.7) 0%, hsla(0, 0%, 100%, 0.3) 50%, hsla(0, 0%, 100%, 0) 100%);
+    --gradient-button-glossy: linear-gradient(180deg, hsla(0, 0%, 100%, 0.6) 0%, hsla(0, 0%, 100%, 0.2) 50%, hsla(0, 0%, 0%, 0.1) 100%);
+    --gradient-selection: linear-gradient(180deg, hsl(205, 90%, 65%) 0%, hsl(205, 85%, 55%) 100%);
 
-    /* Enhanced Shadows with glow */
-    --shadow-window: 0 12px 40px -8px hsl(195 60% 50% / 0.25), 0 0 0 1px hsl(195 40% 85% / 0.6), inset 0 1px 0 hsl(0 0% 100% / 0.8);
-    --shadow-dock: 0 -8px 32px hsl(195 50% 40% / 0.4), 0 0 0 1px hsl(195 30% 70% / 0.3);
-    --shadow-button: 0 4px 12px hsl(195 85% 55% / 0.4), 0 2px 4px hsl(195 90% 40% / 0.3);
-    --shadow-glow: 0 0 20px hsl(195 85% 70% / 0.5), 0 0 40px hsl(195 80% 60% / 0.3);
+    /* Classic Aqua Shadows */
+    --shadow-window: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.1);
+    --shadow-dock: 0 -4px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    --shadow-button: 0 2px 8px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    --shadow-button-inset: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    --shadow-glossy: 0 0 20px rgba(205, 220, 255, 0.4), 0 4px 12px rgba(0, 0, 0, 0.2);
     
     /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-smooth: all 0.2s ease-out;
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 }
 
