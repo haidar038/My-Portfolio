@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Home, User, Map, Folder, Mail } from "lucide-react";
 import { Dock, DockItem } from "@/components/Dock";
 import { Window } from "@/components/Window";
+import { FinderWelcome } from "@/components/FinderWelcome";
 import { HomeWindow } from "@/components/windows/HomeWindow";
 import { AboutWindow } from "@/components/windows/AboutWindow";
 import { JourneyWindow } from "@/components/windows/JourneyWindow";
@@ -57,8 +58,12 @@ const Index = () => {
   };
 
   const getWindowPosition = (index: number) => {
-    const offset = index * 30;
-    return { x: 100 + offset, y: 50 + offset };
+    // Responsive positioning
+    const isMobile = window.innerWidth < 640;
+    const offset = isMobile ? index * 20 : index * 30;
+    const baseX = isMobile ? 10 : 100;
+    const baseY = isMobile ? 20 : 50;
+    return { x: baseX + offset, y: baseY + offset };
   };
 
   const renderWindow = (windowData: OpenWindow, index: number) => {
@@ -90,19 +95,28 @@ const Index = () => {
 
   return (
     <div 
-      className="min-h-screen w-full relative overflow-hidden"
+      className="min-h-screen w-full relative overflow-hidden touch-none"
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat"
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed"
       }}
     >
-      {/* Background overlay for better readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-cyan-100/30 via-blue-100/20 to-sky-100/30" />
+      {/* Enhanced background overlay with Frutiger Aero vibes */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          background: 'radial-gradient(ellipse at top, rgba(224, 242, 254, 0.4) 0%, rgba(186, 230, 253, 0.3) 30%, rgba(125, 211, 252, 0.2) 60%, rgba(34, 211, 238, 0.1) 100%)'
+        }}
+      />
+
+      {/* Finder Welcome - centered */}
+      <FinderWelcome />
 
       {/* Windows Container */}
-      <div className="relative w-full h-screen">
+      <div className="relative w-full h-screen pb-16 sm:pb-20">
         {openWindows.map((windowData, index) => renderWindow(windowData, index))}
       </div>
 

@@ -46,38 +46,51 @@ export const Window = ({
     >
       <div
         className={cn(
-          "absolute w-[90%] max-w-2xl transition-all duration-200",
+          "absolute w-[95%] sm:w-[90%] md:w-[85%] max-w-2xl transition-all duration-300 pointer-events-auto",
           isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
         )}
         style={{ zIndex }}
       >
-        {/* Window */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-xl overflow-hidden shadow-[0_8px_32px_-4px_rgba(0,0,0,0.15),0_0_0_1px_rgba(200,200,220,0.5)] border border-white/40">
-          {/* Title Bar */}
+        {/* Enhanced Frutiger Aero Window with glossy effect */}
+        <div 
+          className="bg-white/85 backdrop-blur-2xl rounded-2xl overflow-hidden border-2 border-white/60"
+          style={{
+            boxShadow: '0 12px 40px -8px rgba(6, 182, 212, 0.25), 0 0 0 1px rgba(224, 242, 254, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 0 30px rgba(34, 211, 238, 0.15)',
+            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 249, 255, 0.85) 100%)'
+          }}
+        >
+          {/* Enhanced Title Bar with glossy gradient */}
           <div 
-            className="window-header h-12 bg-gradient-to-b from-gray-50/90 to-gray-100/90 border-b border-gray-200/50 flex items-center justify-between px-4 cursor-move select-none"
+            className="window-header h-11 md:h-12 border-b border-white/40 flex items-center justify-between px-3 md:px-4 cursor-move select-none relative"
+            style={{
+              background: 'linear-gradient(180deg, rgba(240, 249, 255, 0.95) 0%, rgba(224, 242, 254, 0.9) 100%)',
+              boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 1px 2px rgba(0, 0, 0, 0.05)'
+            }}
             onMouseDown={onFocus}
           >
-            {/* Window Controls */}
-            <div className="flex items-center gap-2">
+            {/* Enhanced Window Controls with glossy effect */}
+            <div className="flex items-center gap-1.5 md:gap-2">
               <button
                 onClick={handleClose}
-                className="w-3 h-3 rounded-full bg-[#FF5F57] hover:bg-[#FF4136] transition-colors shadow-sm"
+                className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-gradient-to-br from-red-400 to-red-500 hover:from-red-500 hover:to-red-600 transition-all shadow-md hover:shadow-lg"
+                style={{ boxShadow: '0 2px 4px rgba(239, 68, 68, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)' }}
                 aria-label="Close"
               />
               <button
                 onClick={() => setIsMinimized(true)}
-                className="w-3 h-3 rounded-full bg-[#FFBD2E] hover:bg-[#FFB000] transition-colors shadow-sm"
+                className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 transition-all shadow-md hover:shadow-lg"
+                style={{ boxShadow: '0 2px 4px rgba(234, 179, 8, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)' }}
                 aria-label="Minimize"
               />
               <button
-                className="w-3 h-3 rounded-full bg-[#28CA42] hover:bg-[#00D924] transition-colors shadow-sm"
+                className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-gradient-to-br from-green-400 to-green-500 hover:from-green-500 hover:to-green-600 transition-all shadow-md hover:shadow-lg"
+                style={{ boxShadow: '0 2px 4px rgba(34, 197, 94, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)' }}
                 aria-label="Maximize"
               />
             </div>
 
             {/* Title */}
-            <div className="absolute left-1/2 -translate-x-1/2 text-sm font-medium text-gray-700">
+            <div className="absolute left-1/2 -translate-x-1/2 text-xs md:text-sm font-semibold text-gray-700" style={{ textShadow: '0 1px 0 rgba(255, 255, 255, 0.8)' }}>
               {title}
             </div>
 
@@ -85,9 +98,22 @@ export const Window = ({
             <div className="w-16" />
           </div>
 
-          {/* Content */}
-          <div className="max-h-[60vh] overflow-y-auto p-6 bg-gradient-to-b from-white/95 to-gray-50/95">
+          {/* Enhanced Content with subtle gradient */}
+          <div 
+            className="max-h-[60vh] md:max-h-[65vh] overflow-y-auto p-4 md:p-6 relative"
+            style={{
+              background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 249, 255, 0.9) 100%)'
+            }}
+          >
             {children}
+            
+            {/* Top glass reflection */}
+            <div 
+              className="absolute top-0 left-0 right-0 h-24 pointer-events-none rounded-t-xl"
+              style={{
+                background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%)'
+              }}
+            />
           </div>
         </div>
       </div>

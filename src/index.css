@@ -8,9 +8,9 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Vintage macOS Aqua color scheme */
-    --background: 200 30% 95%;
-    --foreground: 210 20% 15%;
+    /* Enhanced Frutiger Aero color scheme - glossy, vibrant, optimistic */
+    --background: 195 40% 92%;
+    --foreground: 210 25% 20%;
 
     --card: 0 0% 100%;
     --card-foreground: 210 20% 15%;
@@ -53,15 +53,19 @@ All colors MUST be HSL.
     --dock-bg: 210 20% 25%;
     --dock-indicator: 195 85% 55%;
 
-    /* Gradients */
-    --gradient-aqua: linear-gradient(135deg, hsl(195, 85%, 65%), hsl(195, 75%, 50%));
-    --gradient-window: linear-gradient(180deg, hsl(0, 0%, 98%), hsl(0, 0%, 96%));
-    --gradient-subtle: linear-gradient(180deg, hsl(200, 30%, 97%), hsl(200, 25%, 94%));
+    /* Enhanced Frutiger Aero Gradients */
+    --gradient-aqua: linear-gradient(135deg, hsl(195, 90%, 70%), hsl(190, 85%, 55%), hsl(185, 80%, 45%));
+    --gradient-window: linear-gradient(180deg, hsl(0, 0%, 100%), hsl(200, 40%, 97%));
+    --gradient-window-header: linear-gradient(180deg, hsl(200, 30%, 98%), hsl(200, 25%, 92%));
+    --gradient-subtle: linear-gradient(135deg, hsl(195, 50%, 96%), hsl(190, 45%, 93%));
+    --gradient-glossy: linear-gradient(135deg, hsla(0, 0%, 100%, 0.9), hsla(195, 100%, 95%, 0.7));
+    --gradient-button: linear-gradient(180deg, hsl(195, 80%, 65%), hsl(195, 75%, 55%));
 
-    /* Shadows */
-    --shadow-window: 0 8px 32px -4px hsl(210 20% 15% / 0.15), 0 0 0 1px hsl(200 30% 90% / 0.5);
-    --shadow-dock: 0 -4px 24px hsl(210 20% 15% / 0.3);
-    --shadow-button: 0 2px 8px hsl(195 85% 55% / 0.3);
+    /* Enhanced Shadows with glow */
+    --shadow-window: 0 12px 40px -8px hsl(195 60% 50% / 0.25), 0 0 0 1px hsl(195 40% 85% / 0.6), inset 0 1px 0 hsl(0 0% 100% / 0.8);
+    --shadow-dock: 0 -8px 32px hsl(195 50% 40% / 0.4), 0 0 0 1px hsl(195 30% 70% / 0.3);
+    --shadow-button: 0 4px 12px hsl(195 85% 55% / 0.4), 0 2px 4px hsl(195 90% 40% / 0.3);
+    --shadow-glow: 0 0 20px hsl(195 85% 70% / 0.5), 0 0 40px hsl(195 80% 60% / 0.3);
     
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
