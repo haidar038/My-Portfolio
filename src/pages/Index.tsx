@@ -147,8 +147,11 @@ const Index = () => {
 
     return (
         <div
-            className="min-h-screen w-full relative overflow-hidden touch-none"
+            className="w-full relative overflow-hidden touch-none mobile-bg-scroll"
             style={{
+                minHeight: "100vh",
+                minHeight: "100dvh", // Dynamic viewport height for mobile
+                height: "100%",
                 backgroundImage: `url(${backgroundImage})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
@@ -161,6 +164,8 @@ const Index = () => {
                 className="absolute inset-0"
                 style={{
                     background: "radial-gradient(ellipse at top, rgba(135, 206, 250, 0.3) 0%, rgba(100, 180, 240, 0.25) 30%, rgba(70, 150, 220, 0.2) 60%, rgba(50, 120, 200, 0.15) 100%)",
+                    minHeight: "100vh",
+                    minHeight: "100dvh",
                 }}
             />
 
@@ -171,7 +176,15 @@ const Index = () => {
             <FinderWelcome onMoreInfoClick={() => handleWindowToggle("home")} />
 
             {/* Windows Container */}
-            <div className="relative w-full h-screen pt-0 md:pt-6 pb-24">{openWindows.map((windowData, index) => renderWindow(windowData, index))}</div>
+            <div
+                className="relative w-full pt-0 md:pt-6 pb-24"
+                style={{
+                    minHeight: "100vh",
+                    minHeight: "100dvh",
+                }}
+            >
+                {openWindows.map((windowData, index) => renderWindow(windowData, index))}
+            </div>
 
             {/* Dock */}
             <Dock items={dockItems} activeItems={openWindows.filter(w => !w.isMinimized).map((w) => w.id)} />
