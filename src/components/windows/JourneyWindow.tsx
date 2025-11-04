@@ -1,8 +1,10 @@
 import { GraduationCap, Briefcase, Calendar } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export const JourneyWindow = () => {
     const { t } = useTranslation();
+    const { isDarkMode } = useTheme();
     const education = [
         {
             degree: "Bachelor of Computer Science",
@@ -48,44 +50,78 @@ export const JourneyWindow = () => {
     return (
         <div className="space-y-8">
             <div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-                    <GraduationCap className="w-6 h-6 text-cyan-600" />
+                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 transition-colors duration-300" style={{
+                    color: isDarkMode ? '#f8fafc' : '#1f2937'
+                }}>
+                    <GraduationCap className="w-6 h-6" style={{
+                        color: isDarkMode ? '#22d3ee' : '#0891b2'
+                    }} />
                     {t("journey.sectionheading1")}
                 </h2>
                 <div className="space-y-4">
                     {education.map((edu, index) => (
-                        <div key={index} className="p-4 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-lg border border-cyan-200/50">
+                        <div key={index} className="p-4 rounded-lg border transition-all duration-300" style={{
+                            background: isDarkMode
+                                ? 'linear-gradient(to bottom right, rgba(6, 182, 212, 0.15), rgba(59, 130, 246, 0.15))'
+                                : 'linear-gradient(to bottom right, rgb(236, 254, 255), rgb(239, 246, 255))',
+                            borderColor: isDarkMode ? 'rgba(6, 182, 212, 0.3)' : 'rgba(165, 243, 252, 0.5)'
+                        }}>
                             <div className="flex items-start justify-between mb-2">
-                                <h3 className="font-semibold text-gray-800">{edu.degree}</h3>
-                                <span className="text-xs text-gray-600 flex items-center gap-1">
+                                <h3 className="font-semibold transition-colors duration-300" style={{
+                                    color: isDarkMode ? '#f8fafc' : '#1f2937'
+                                }}>{edu.degree}</h3>
+                                <span className="text-xs flex items-center gap-1 transition-colors duration-300" style={{
+                                    color: isDarkMode ? '#cbd5e1' : '#4b5563'
+                                }}>
                                     <Calendar className="w-3 h-3" />
                                     {edu.year}
                                 </span>
                             </div>
-                            <p className="text-sm text-cyan-700 font-medium mb-1">{edu.institution}</p>
-                            <p className="text-sm text-gray-600">{edu.description}</p>
+                            <p className="text-sm font-medium mb-1 transition-colors duration-300" style={{
+                                color: isDarkMode ? '#67e8f9' : '#0e7490'
+                            }}>{edu.institution}</p>
+                            <p className="text-sm transition-colors duration-300" style={{
+                                color: isDarkMode ? '#cbd5e1' : '#4b5563'
+                            }}>{edu.description}</p>
                         </div>
                     ))}
                 </div>
             </div>
 
             <div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-                    <Briefcase className="w-6 h-6 text-blue-600" />
+                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 transition-colors duration-300" style={{
+                    color: isDarkMode ? '#f8fafc' : '#1f2937'
+                }}>
+                    <Briefcase className="w-6 h-6" style={{
+                        color: isDarkMode ? '#60a5fa' : '#2563eb'
+                    }} />
                     {t("journey.sectionheading2")}
                 </h2>
                 <div className="space-y-4">
                     {experience.map((exp, index) => (
-                        <div key={index} className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-200/50">
+                        <div key={index} className="p-4 rounded-lg border transition-all duration-300" style={{
+                            background: isDarkMode
+                                ? 'linear-gradient(to bottom right, rgba(59, 130, 246, 0.15), rgba(99, 102, 241, 0.15))'
+                                : 'linear-gradient(to bottom right, rgb(239, 246, 255), rgb(238, 242, 255))',
+                            borderColor: isDarkMode ? 'rgba(59, 130, 246, 0.3)' : 'rgba(191, 219, 254, 0.5)'
+                        }}>
                             <div className="flex items-start justify-between mb-2">
-                                <h3 className="font-semibold text-gray-800">{exp.title}</h3>
-                                <span className="text-xs text-gray-600 flex items-center gap-1">
+                                <h3 className="font-semibold transition-colors duration-300" style={{
+                                    color: isDarkMode ? '#f8fafc' : '#1f2937'
+                                }}>{exp.title}</h3>
+                                <span className="text-xs flex items-center gap-1 transition-colors duration-300" style={{
+                                    color: isDarkMode ? '#cbd5e1' : '#4b5563'
+                                }}>
                                     <Calendar className="w-3 h-3" />
                                     {exp.period}
                                 </span>
                             </div>
-                            <p className="text-sm text-blue-700 font-medium mb-1">{exp.company}</p>
-                            <p className="text-sm text-gray-600">{exp.description}</p>
+                            <p className="text-sm font-medium mb-1 transition-colors duration-300" style={{
+                                color: isDarkMode ? '#93c5fd' : '#1d4ed8'
+                            }}>{exp.company}</p>
+                            <p className="text-sm transition-colors duration-300" style={{
+                                color: isDarkMode ? '#cbd5e1' : '#4b5563'
+                            }}>{exp.description}</p>
                         </div>
                     ))}
                 </div>

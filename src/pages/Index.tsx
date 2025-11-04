@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "@/contexts/ThemeContext";
 import { Dock, DockItem } from "@/components/Dock";
 import { Window } from "@/components/Window";
 import { MenuBar } from "@/components/MenuBar";
@@ -10,11 +11,17 @@ import { JourneyWindow } from "@/components/windows/JourneyWindow";
 import { WorkWindow } from "@/components/windows/WorkWindow";
 import { ContactWindow } from "@/components/windows/ContactWindow";
 import backgroundImage from "@/assets/materialdictionary206_35.jpg";
+import darkBackgroundImage from "@/assets/DarkThemeBackround.png";
 import HomeIcon from "@/assets/icons/HomeIcon.png";
 import UserIcon from "@/assets/icons/UserIcon.png";
 import JourneyIcon from "@/assets/icons/JourneyIcon.png";
 import FolderIcon from "@/assets/icons/FolderIcon.png";
 import MailIcon from "@/assets/icons/MailIcon.png";
+import HomeIconDark from "@/assets/icons/dark-theme-icons/HomeIconDark.png";
+import UserIconDark from "@/assets/icons/dark-theme-icons/UserIconDark.png";
+import JourneyIconDark from "@/assets/icons/dark-theme-icons/JourneyIconDark.png";
+import FolderIconDark from "@/assets/icons/dark-theme-icons/FolderIconDark.png";
+import MailIconDark from "@/assets/icons/dark-theme-icons/MailIconDark.png";
 
 type WindowType = "home" | "about" | "journey" | "work" | "contact";
 
@@ -27,15 +34,16 @@ interface OpenWindow {
 
 const Index = () => {
     const { t } = useTranslation();
+    const { isDarkMode } = useTheme();
     const [openWindows, setOpenWindows] = useState<OpenWindow[]>([]);
     const [maxZIndex, setMaxZIndex] = useState(10);
 
     const dockItems: DockItem[] = [
-        { id: "home", label: t('dock.home'), iconSrc: HomeIcon, onClick: () => handleWindowToggle("home") },
-        { id: "about", label: t('dock.about'), iconSrc: UserIcon, onClick: () => handleWindowToggle("about") },
-        { id: "journey", label: t('dock.journey'), iconSrc: JourneyIcon, onClick: () => handleWindowToggle("journey") },
-        { id: "work", label: t('dock.work'), iconSrc: FolderIcon, onClick: () => handleWindowToggle("work") },
-        { id: "contact", label: t('dock.contact'), iconSrc: MailIcon, onClick: () => handleWindowToggle("contact") },
+        { id: "home", label: t('dock.home'), iconSrc: isDarkMode ? HomeIconDark : HomeIcon, onClick: () => handleWindowToggle("home") },
+        { id: "about", label: t('dock.about'), iconSrc: isDarkMode ? UserIconDark : UserIcon, onClick: () => handleWindowToggle("about") },
+        { id: "journey", label: t('dock.journey'), iconSrc: isDarkMode ? JourneyIconDark : JourneyIcon, onClick: () => handleWindowToggle("journey") },
+        { id: "work", label: t('dock.work'), iconSrc: isDarkMode ? FolderIconDark : FolderIcon, onClick: () => handleWindowToggle("work") },
+        { id: "contact", label: t('dock.contact'), iconSrc: isDarkMode ? MailIconDark : MailIcon, onClick: () => handleWindowToggle("contact") },
     ];
 
     const handleWindowToggle = (windowId: WindowType) => {
@@ -147,23 +155,25 @@ const Index = () => {
 
     return (
         <div
-            className="w-full relative overflow-hidden touch-none mobile-bg-scroll"
+            className="w-full relative overflow-hidden touch-none mobile-bg-scroll transition-all duration-500"
             style={{
                 minHeight: "100vh",
                 minHeight: "100dvh", // Dynamic viewport height for mobile
                 height: "100%",
-                backgroundImage: `url(${backgroundImage})`,
+                backgroundImage: isDarkMode ? `url(${darkBackgroundImage})` : `url(${backgroundImage})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
                 backgroundAttachment: "fixed",
             }}
         >
-            {/* Enhanced overlay with Frutiger Aero vibes */}
+            {/* Enhanced overlay with Frutiger Aero vibes or dark theme */}
             <div
-                className="absolute inset-0"
+                className="absolute inset-0 transition-all duration-500"
                 style={{
-                    background: "radial-gradient(ellipse at top, rgba(135, 206, 250, 0.3) 0%, rgba(100, 180, 240, 0.25) 30%, rgba(70, 150, 220, 0.2) 60%, rgba(50, 120, 200, 0.15) 100%)",
+                    background: isDarkMode
+                        ? "radial-gradient(ellipse at top, rgba(30, 41, 59, 0.2) 0%, rgba(15, 23, 42, 0.3) 50%, rgba(0, 0, 0, 0.4) 100%)"
+                        : "radial-gradient(ellipse at top, rgba(135, 206, 250, 0.3) 0%, rgba(100, 180, 240, 0.25) 30%, rgba(70, 150, 220, 0.2) 60%, rgba(50, 120, 200, 0.15) 100%)",
                     minHeight: "100vh",
                     minHeight: "100dvh",
                 }}

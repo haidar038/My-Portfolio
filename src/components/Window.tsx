@@ -2,6 +2,7 @@ import { ReactNode, useState, useEffect } from "react";
 import Draggable from "react-draggable";
 import { X, Minus, Maximize2, ChevronLeft, ChevronRight, Grid3x3 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/contexts/ThemeContext";
 
 interface WindowProps {
   title: string;
@@ -30,6 +31,7 @@ export const Window = ({
 }: WindowProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     // Fade in animation
@@ -66,19 +68,29 @@ export const Window = ({
       >
         {/* Classic Mac OS X Aqua Window with brushed metal */}
         <div
-          className={cn("overflow-hidden border border-gray-400/60", isFullscreen ? "rounded-none h-full" : "rounded-xl")}
+          className={cn("overflow-hidden border transition-all duration-300", isFullscreen ? "rounded-none h-full" : "rounded-xl")}
           style={{
-            boxShadow: '0 12px 48px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.15)',
-            background: 'linear-gradient(180deg, hsl(210, 12%, 92%) 0%, hsl(210, 10%, 86%) 50%, hsl(210, 12%, 80%) 100%)',
+            boxShadow: isDarkMode
+              ? '0 12px 48px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(148, 163, 184, 0.2)'
+              : '0 12px 48px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.15)',
+            background: isDarkMode
+              ? 'linear-gradient(180deg, rgba(51, 65, 85, 0.95) 0%, rgba(30, 41, 59, 0.95) 50%, rgba(15, 23, 42, 0.95) 100%)'
+              : 'linear-gradient(180deg, hsl(210, 12%, 92%) 0%, hsl(210, 10%, 86%) 50%, hsl(210, 12%, 80%) 100%)',
+            borderColor: isDarkMode ? 'rgba(148, 163, 184, 0.3)' : 'rgba(156, 163, 175, 0.6)',
             height: isFullscreen ? '100%' : 'auto'
           }}
         >
           {/* Classic Mac OS X Title Bar */}
           <div
-            className={cn("window-header h-9 border-b border-gray-400/40 flex items-center justify-between px-3 select-none relative", !isFullscreen && !isMobile && "cursor-move")}
+            className={cn("window-header h-9 border-b flex items-center justify-between px-3 select-none relative transition-all duration-300", !isFullscreen && !isMobile && "cursor-move")}
             style={{
-              background: 'linear-gradient(180deg, hsl(210, 15%, 95%) 0%, hsl(210, 12%, 89%) 50%, hsl(210, 10%, 83%) 100%)',
-              boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 0 rgba(0, 0, 0, 0.1)'
+              background: isDarkMode
+                ? 'linear-gradient(180deg, rgba(71, 85, 105, 0.9) 0%, rgba(51, 65, 85, 0.9) 50%, rgba(30, 41, 59, 0.9) 100%)'
+                : 'linear-gradient(180deg, hsl(210, 15%, 95%) 0%, hsl(210, 12%, 89%) 50%, hsl(210, 10%, 83%) 100%)',
+              boxShadow: isDarkMode
+                ? 'inset 0 1px 0 rgba(148, 163, 184, 0.3), 0 1px 0 rgba(0, 0, 0, 0.2)'
+                : 'inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 0 rgba(0, 0, 0, 0.1)',
+              borderBottomColor: isDarkMode ? 'rgba(148, 163, 184, 0.2)' : 'rgba(156, 163, 175, 0.4)'
             }}
             onMouseDown={onFocus}
           >
@@ -139,9 +151,12 @@ export const Window = ({
 
             {/* Title */}
             <div
-              className="absolute left-1/2 -translate-x-1/2 text-[13px] font-semibold text-gray-700 tracking-tight"
+              className="absolute left-1/2 -translate-x-1/2 text-[13px] font-semibold tracking-tight transition-colors duration-300"
               style={{
-                textShadow: '0 1px 0 rgba(255, 255, 255, 0.6)',
+                color: isDarkMode ? '#f8fafc' : '#374151',
+                textShadow: isDarkMode
+                  ? '0 1px 0 rgba(0, 0, 0, 0.6)'
+                  : '0 1px 0 rgba(255, 255, 255, 0.6)',
                 fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
               }}
             >
@@ -155,52 +170,77 @@ export const Window = ({
           {/* Optional Toolbar */}
           {showToolbar && (
             <div
-              className="h-12 border-b border-gray-400/40 flex items-center px-3 gap-2"
+              className="h-12 border-b flex items-center px-3 gap-2 transition-all duration-300"
               style={{
-                background: 'linear-gradient(180deg, hsl(210, 12%, 90%) 0%, hsl(210, 10%, 84%) 100%)',
-                boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+                background: isDarkMode
+                  ? 'linear-gradient(180deg, rgba(51, 65, 85, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%)'
+                  : 'linear-gradient(180deg, hsl(210, 12%, 90%) 0%, hsl(210, 10%, 84%) 100%)',
+                boxShadow: isDarkMode
+                  ? 'inset 0 1px 0 rgba(148, 163, 184, 0.2)'
+                  : 'inset 0 1px 0 rgba(255, 255, 255, 0.5)',
+                borderBottomColor: isDarkMode ? 'rgba(148, 163, 184, 0.2)' : 'rgba(156, 163, 175, 0.4)'
               }}
             >
               {/* Navigation buttons */}
               <div className="flex gap-1">
                 <button
-                  className="w-7 h-7 rounded flex items-center justify-center transition-all hover:bg-white/40"
+                  className="w-7 h-7 rounded flex items-center justify-center transition-all"
                   style={{
-                    background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%)',
-                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.7)'
+                    background: isDarkMode
+                      ? 'linear-gradient(180deg, rgba(71, 85, 105, 0.5) 0%, rgba(51, 65, 85, 0.5) 100%)'
+                      : 'linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%)',
+                    boxShadow: isDarkMode
+                      ? '0 1px 2px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(148, 163, 184, 0.2)'
+                      : '0 1px 2px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.7)'
                   }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = isDarkMode ? 'rgba(71, 85, 105, 0.7)' : 'rgba(255, 255, 255, 0.4)'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = isDarkMode ? 'linear-gradient(180deg, rgba(71, 85, 105, 0.5) 0%, rgba(51, 65, 85, 0.5) 100%)' : 'linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%)'}
                 >
-                  <ChevronLeft className="w-4 h-4 text-gray-700" strokeWidth={2} />
+                  <ChevronLeft className="w-4 h-4 transition-colors" style={{ color: isDarkMode ? '#cbd5e1' : '#374151' }} strokeWidth={2} />
                 </button>
                 <button
-                  className="w-7 h-7 rounded flex items-center justify-center transition-all hover:bg-white/40"
+                  className="w-7 h-7 rounded flex items-center justify-center transition-all"
                   style={{
-                    background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%)',
-                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.7)'
+                    background: isDarkMode
+                      ? 'linear-gradient(180deg, rgba(71, 85, 105, 0.5) 0%, rgba(51, 65, 85, 0.5) 100%)'
+                      : 'linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%)',
+                    boxShadow: isDarkMode
+                      ? '0 1px 2px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(148, 163, 184, 0.2)'
+                      : '0 1px 2px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.7)'
                   }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = isDarkMode ? 'rgba(71, 85, 105, 0.7)' : 'rgba(255, 255, 255, 0.4)'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = isDarkMode ? 'linear-gradient(180deg, rgba(71, 85, 105, 0.5) 0%, rgba(51, 65, 85, 0.5) 100%)' : 'linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%)'}
                 >
-                  <ChevronRight className="w-4 h-4 text-gray-700" strokeWidth={2} />
+                  <ChevronRight className="w-4 h-4 transition-colors" style={{ color: isDarkMode ? '#cbd5e1' : '#374151' }} strokeWidth={2} />
                 </button>
               </div>
 
               {/* View options */}
               <button
-                className="w-7 h-7 rounded flex items-center justify-center transition-all hover:bg-white/40 ml-auto"
+                className="w-7 h-7 rounded flex items-center justify-center transition-all ml-auto"
                 style={{
-                  background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%)',
-                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.7)'
+                  background: isDarkMode
+                    ? 'linear-gradient(180deg, rgba(71, 85, 105, 0.5) 0%, rgba(51, 65, 85, 0.5) 100%)'
+                    : 'linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%)',
+                  boxShadow: isDarkMode
+                    ? '0 1px 2px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(148, 163, 184, 0.2)'
+                    : '0 1px 2px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.7)'
                 }}
+                onMouseEnter={(e) => e.currentTarget.style.background = isDarkMode ? 'rgba(71, 85, 105, 0.7)' : 'rgba(255, 255, 255, 0.4)'}
+                onMouseLeave={(e) => e.currentTarget.style.background = isDarkMode ? 'linear-gradient(180deg, rgba(71, 85, 105, 0.5) 0%, rgba(51, 65, 85, 0.5) 100%)' : 'linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%)'}
               >
-                <Grid3x3 className="w-4 h-4 text-gray-700" strokeWidth={2} />
+                <Grid3x3 className="w-4 h-4 transition-colors" style={{ color: isDarkMode ? '#cbd5e1' : '#374151' }} strokeWidth={2} />
               </button>
             </div>
           )}
 
           {/* Content with brushed metal background */}
           <div
-            className={cn("overflow-y-auto p-4 md:p-6 relative", isFullscreen ? "h-[calc(100vh-60px)]" : "max-h-[60vh] md:max-h-[65vh]")}
+            className={cn("overflow-y-auto p-4 md:p-6 relative transition-all duration-300", isFullscreen ? "h-[calc(100vh-60px)]" : "max-h-[60vh] md:max-h-[65vh]")}
             style={{
-              background: 'linear-gradient(180deg, hsl(210, 8%, 97%) 0%, hsl(210, 6%, 93%) 100%)',
+              background: isDarkMode
+                ? 'linear-gradient(180deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%)'
+                : 'linear-gradient(180deg, hsl(210, 8%, 97%) 0%, hsl(210, 6%, 93%) 100%)',
             }}
           >
             {children}

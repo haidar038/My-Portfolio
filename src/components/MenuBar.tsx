@@ -1,9 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import { Apple, Wifi, Battery, Volume2, Search, Languages } from "lucide-react";
+import { Wifi, Battery, Volume2, Search, Languages, Moon, Sun } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "@/contexts/ThemeContext";
+import HDRBlackLogo from "@/assets/logos/HDR-BLACK.png";
+import HDRWhiteLogo from "@/assets/logos/HDR-WHITE.png";
 
 export const MenuBar = () => {
   const { t, i18n } = useTranslation();
+  const { isDarkMode, toggleTheme } = useTheme();
   const [currentTime, setCurrentTime] = useState(new Date());
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [dropdownPosition, setDropdownPosition] = useState({ left: 0 });
@@ -201,16 +205,20 @@ export const MenuBar = () => {
   return (
     <div
       ref={menuBarRef}
-      className="fixed top-0 left-0 right-0 h-6 z-[100] hidden md:flex items-center justify-between px-2 select-none"
+      className="fixed top-0 left-0 right-0 h-6 z-[100] hidden md:flex items-center justify-between px-2 select-none transition-all duration-300"
       style={{
-        background: 'linear-gradient(180deg, rgba(230, 230, 230, 0.95) 0%, rgba(210, 210, 210, 0.95) 100%)',
+        background: isDarkMode
+          ? 'linear-gradient(180deg, rgba(51, 65, 85, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%)'
+          : 'linear-gradient(180deg, rgba(230, 230, 230, 0.95) 0%, rgba(210, 210, 210, 0.95) 100%)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        borderBottom: '1px solid rgba(0, 0, 0, 0.2)',
-        boxShadow: '0 1px 0 rgba(255, 255, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
+        borderBottom: isDarkMode ? '1px solid rgba(148, 163, 184, 0.3)' : '1px solid rgba(0, 0, 0, 0.2)',
+        boxShadow: isDarkMode
+          ? '0 1px 0 rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(148, 163, 184, 0.2)'
+          : '0 1px 0 rgba(255, 255, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
       }}
     >
-      {/* Left side - Apple logo and menus */}
+      {/* Left side - HDR logo and menus */}
       <div className="flex items-center gap-0">
         <button
           ref={(el) => (buttonRefs.current['apple'] = el)}
@@ -219,19 +227,24 @@ export const MenuBar = () => {
           }`}
           onClick={() => handleMenuClick('apple')}
         >
-          <Apple className="w-4 h-4 text-gray-800" fill="currentColor" />
+          <img
+            src={isDarkMode ? HDRWhiteLogo : HDRBlackLogo}
+            alt="HDR Logo"
+            className="w-4 h-4 object-contain"
+          />
         </button>
 
         {menus.map((menu) => (
           <button
             key={menu.id}
             ref={(el) => (buttonRefs.current[menu.id] = el)}
-            className={`h-6 px-2 text-xs font-semibold text-gray-800 transition-colors ${
+            className={`h-6 px-2 text-xs font-semibold transition-colors ${
               activeMenu === menu.id ? 'bg-blue-500/40' : 'hover:bg-blue-500/30'
             }`}
             onClick={() => handleMenuClick(menu.id)}
             style={{
-              textShadow: '0 1px 0 rgba(255, 255, 255, 0.8)'
+              color: isDarkMode ? '#f1f5f9' : '#1f2937',
+              textShadow: isDarkMode ? '0 1px 0 rgba(0, 0, 0, 0.5)' : '0 1px 0 rgba(255, 255, 255, 0.8)'
             }}
           >
             {menu.label}
@@ -245,7 +258,7 @@ export const MenuBar = () => {
       {/* Right side - System icons and time */}
       <div className="flex items-center gap-2">
         <button className="h-6 w-6 flex items-center justify-center hover:bg-blue-500/30 transition-colors rounded">
-          <Search className="w-3.5 h-3.5 text-gray-800" />
+          <Search className="w-3.5 h-3.5" style={{ color: isDarkMode ? '#f1f5f9' : '#1f2937' }} />
         </button>
 
         {/* Language Switcher */}
@@ -257,8 +270,11 @@ export const MenuBar = () => {
             }`}
             onClick={() => handleMenuClick('language')}
           >
-            <Languages className="w-3.5 h-3.5 text-gray-800" />
-            <span className="text-[10px] font-medium text-gray-800" style={{ textShadow: '0 1px 0 rgba(255, 255, 255, 0.8)' }}>
+            <Languages className="w-3.5 h-3.5" style={{ color: isDarkMode ? '#f1f5f9' : '#1f2937' }} />
+            <span className="text-[10px] font-medium" style={{
+              color: isDarkMode ? '#f1f5f9' : '#1f2937',
+              textShadow: isDarkMode ? '0 1px 0 rgba(0, 0, 0, 0.5)' : '0 1px 0 rgba(255, 255, 255, 0.8)'
+            }}>
               {i18n.language.toUpperCase()}
             </span>
           </button>
@@ -307,18 +323,33 @@ export const MenuBar = () => {
         </div>
 
         <button className="h-6 w-6 flex items-center justify-center hover:bg-blue-500/30 transition-colors rounded">
-          <Battery className="w-3.5 h-3.5 text-gray-800" />
+          <Battery className="w-3.5 h-3.5" style={{ color: isDarkMode ? '#f1f5f9' : '#1f2937' }} />
         </button>
         <button className="h-6 w-6 flex items-center justify-center hover:bg-blue-500/30 transition-colors rounded">
-          <Wifi className="w-3.5 h-3.5 text-gray-800" />
+          <Wifi className="w-3.5 h-3.5" style={{ color: isDarkMode ? '#f1f5f9' : '#1f2937' }} />
         </button>
         <button className="h-6 w-6 flex items-center justify-center hover:bg-blue-500/30 transition-colors rounded">
-          <Volume2 className="w-3.5 h-3.5 text-gray-800" />
+          <Volume2 className="w-3.5 h-3.5" style={{ color: isDarkMode ? '#f1f5f9' : '#1f2937' }} />
         </button>
+
+        {/* Dark Mode Toggle */}
+        <button
+          className="h-6 w-6 flex items-center justify-center hover:bg-blue-500/30 transition-colors rounded"
+          onClick={toggleTheme}
+          title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+        >
+          {isDarkMode ? (
+            <Sun className="w-3.5 h-3.5" style={{ color: '#fbbf24' }} />
+          ) : (
+            <Moon className="w-3.5 h-3.5" style={{ color: '#1f2937' }} />
+          )}
+        </button>
+
         <div
-          className="text-xs font-medium text-gray-800 px-2"
+          className="text-xs font-medium px-2"
           style={{
-            textShadow: '0 1px 0 rgba(255, 255, 255, 0.8)'
+            color: isDarkMode ? '#f1f5f9' : '#1f2937',
+            textShadow: isDarkMode ? '0 1px 0 rgba(0, 0, 0, 0.5)' : '0 1px 0 rgba(255, 255, 255, 0.8)'
           }}
         >
           {formatTime(currentTime)}

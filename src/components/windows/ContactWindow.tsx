@@ -2,12 +2,14 @@ import { useState, FormEvent } from "react";
 import { Mail, User, MessageSquare, Send } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import { useToast } from "@/hooks/use-toast";
+import { useTheme } from "@/contexts/ThemeContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 export const ContactWindow = () => {
     const { toast } = useToast();
+    const { isDarkMode } = useTheme();
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -67,17 +69,27 @@ export const ContactWindow = () => {
     return (
         <div className="space-y-6">
             <div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-2 flex items-center gap-2">
-                    <Mail className="w-6 h-6 text-cyan-600" />
+                <h2 className="text-2xl font-bold mb-2 flex items-center gap-2 transition-colors duration-300" style={{
+                    color: isDarkMode ? '#f8fafc' : '#1f2937'
+                }}>
+                    <Mail className="w-6 h-6" style={{
+                        color: isDarkMode ? '#22d3ee' : '#0891b2'
+                    }} />
                     Get In Touch
                 </h2>
-                <p className="text-gray-600 text-sm">Have a question or want to work together? Send me a message!</p>
+                <p className="text-sm transition-colors duration-300" style={{
+                    color: isDarkMode ? '#cbd5e1' : '#4b5563'
+                }}>Have a question or want to work together? Send me a message!</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label className="text-sm font-medium text-gray-700 mb-1.5 flex items-center gap-2">
-                        <User className="w-4 h-4 text-cyan-600" />
+                    <label className="text-sm font-medium mb-1.5 flex items-center gap-2 transition-colors duration-300" style={{
+                        color: isDarkMode ? '#e2e8f0' : '#374151'
+                    }}>
+                        <User className="w-4 h-4" style={{
+                            color: isDarkMode ? '#22d3ee' : '#0891b2'
+                        }} />
                         Name
                     </label>
                     <Input
@@ -86,13 +98,22 @@ export const ContactWindow = () => {
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Your name"
                         required
-                        className="bg-white/50 border-gray-200 focus:border-cyan-400 focus:ring-cyan-400"
+                        className="transition-all duration-300"
+                        style={{
+                            background: isDarkMode ? 'rgba(51, 65, 85, 0.5)' : 'rgba(255, 255, 255, 0.5)',
+                            borderColor: isDarkMode ? 'rgba(148, 163, 184, 0.3)' : 'rgb(229, 231, 235)',
+                            color: isDarkMode ? '#f8fafc' : '#1f2937'
+                        }}
                     />
                 </div>
 
                 <div>
-                    <label className="text-sm font-medium text-gray-700 mb-1.5 flex items-center gap-2">
-                        <Mail className="w-4 h-4 text-cyan-600" />
+                    <label className="text-sm font-medium mb-1.5 flex items-center gap-2 transition-colors duration-300" style={{
+                        color: isDarkMode ? '#e2e8f0' : '#374151'
+                    }}>
+                        <Mail className="w-4 h-4" style={{
+                            color: isDarkMode ? '#22d3ee' : '#0891b2'
+                        }} />
                         Email
                     </label>
                     <Input
@@ -101,13 +122,22 @@ export const ContactWindow = () => {
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="your.email@example.com"
                         required
-                        className="bg-white/50 border-gray-200 focus:border-cyan-400 focus:ring-cyan-400"
+                        className="transition-all duration-300"
+                        style={{
+                            background: isDarkMode ? 'rgba(51, 65, 85, 0.5)' : 'rgba(255, 255, 255, 0.5)',
+                            borderColor: isDarkMode ? 'rgba(148, 163, 184, 0.3)' : 'rgb(229, 231, 235)',
+                            color: isDarkMode ? '#f8fafc' : '#1f2937'
+                        }}
                     />
                 </div>
 
                 <div>
-                    <label className="text-sm font-medium text-gray-700 mb-1.5 flex items-center gap-2">
-                        <MessageSquare className="w-4 h-4 text-cyan-600" />
+                    <label className="text-sm font-medium mb-1.5 flex items-center gap-2 transition-colors duration-300" style={{
+                        color: isDarkMode ? '#e2e8f0' : '#374151'
+                    }}>
+                        <MessageSquare className="w-4 h-4" style={{
+                            color: isDarkMode ? '#22d3ee' : '#0891b2'
+                        }} />
                         Message
                     </label>
                     <Textarea
@@ -116,7 +146,12 @@ export const ContactWindow = () => {
                         placeholder="Your message here..."
                         required
                         rows={5}
-                        className="bg-white/50 border-gray-200 focus:border-cyan-400 focus:ring-cyan-400 resize-none"
+                        className="resize-none transition-all duration-300"
+                        style={{
+                            background: isDarkMode ? 'rgba(51, 65, 85, 0.5)' : 'rgba(255, 255, 255, 0.5)',
+                            borderColor: isDarkMode ? 'rgba(148, 163, 184, 0.3)' : 'rgb(229, 231, 235)',
+                            color: isDarkMode ? '#f8fafc' : '#1f2937'
+                        }}
                     />
                 </div>
 
@@ -132,8 +167,12 @@ export const ContactWindow = () => {
                 </Button>
             </form>
 
-            <div className="pt-4 border-t border-gray-200">
-                <p className="text-xs text-gray-500 text-center">Make sure to configure your EmailJS credentials in the .env file</p>
+            <div className="pt-4 border-t transition-colors duration-300" style={{
+                borderColor: isDarkMode ? 'rgba(148, 163, 184, 0.3)' : 'rgb(229, 231, 235)'
+            }}>
+                <p className="text-xs text-center transition-colors duration-300" style={{
+                    color: isDarkMode ? '#94a3b8' : '#6b7280'
+                }}>Make sure to configure your EmailJS credentials in the .env file</p>
             </div>
         </div>
     );
