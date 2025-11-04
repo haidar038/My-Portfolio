@@ -1,10 +1,12 @@
 import { Monitor } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface FinderWelcomeProps {
     onMoreInfoClick?: () => void;
 }
 
 export const FinderWelcome = ({ onMoreInfoClick }: FinderWelcomeProps) => {
+    const { t } = useTranslation();
     return (
         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[8] w-[95%] sm:w-[90%] max-w-md pointer-events-none">
             <div
@@ -70,33 +72,28 @@ export const FinderWelcome = ({ onMoreInfoClick }: FinderWelcomeProps) => {
                     {/* Title */}
                     <div>
                         <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1 leading-tight">
-                            <span className="font-luxurious text-blue-600 inline-block align-middle" style={{ fontSize: 'clamp(1.875rem, 5vw, 2.8125rem)', lineHeight: '1' }}>W</span>
-                            <span className="align-middle">elcome to </span>
-                            <span className="font-luxurious text-blue-600 inline-block align-middle" style={{ fontSize: 'clamp(1.875rem, 5vw, 2.8125rem)', lineHeight: '1' }}>M</span>
-                            <span className="align-middle">y </span>
-                            <span className="font-luxurious text-blue-600 inline-block align-middle" style={{ fontSize: 'clamp(1.875rem, 5vw, 2.8125rem)', lineHeight: '1' }}>W</span>
-                            <span className="align-middle">orld</span>
+                            {t('finderWelcome.title')}
                         </h1>
-                        <p className="text-xs sm:text-sm text-gray-500">Welcome, Explorer</p>
+                        <p className="text-xs sm:text-sm text-gray-500">{t('finderWelcome.subtitle')}</p>
                     </div>
 
                     {/* Specs/Info */}
                     <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
                         <div className="flex justify-between items-center px-2 sm:px-4">
-                            <span className="text-gray-600 text-right flex-1">Role</span>
-                            <span className="text-gray-900 font-medium text-left flex-1 ml-2 sm:ml-4">Developer & Designer</span>
+                            <span className="text-gray-600 text-right flex-1">{t('finderWelcome.role')}</span>
+                            <span className="text-gray-900 font-medium text-left flex-1 ml-2 sm:ml-4">{t('finderWelcome.roleValue')}</span>
                         </div>
                         <div className="flex justify-between items-center px-2 sm:px-4">
-                            <span className="text-gray-600 text-right flex-1">Experience</span>
-                            <span className="text-gray-900 font-medium text-left flex-1 ml-2 sm:ml-4">Full Stack</span>
+                            <span className="text-gray-600 text-right flex-1">{t('finderWelcome.experience')}</span>
+                            <span className="text-gray-900 font-medium text-left flex-1 ml-2 sm:ml-4">{t('finderWelcome.experienceValue')}</span>
                         </div>
                         <div className="flex justify-between items-center px-2 sm:px-4">
-                            <span className="text-gray-600 text-right flex-1">Status</span>
-                            <span className="text-gray-900 font-medium text-left flex-1 ml-2 sm:ml-4">Available</span>
+                            <span className="text-gray-600 text-right flex-1">{t('finderWelcome.status')}</span>
+                            <span className="text-gray-900 font-medium text-left flex-1 ml-2 sm:ml-4">{t('finderWelcome.statusValue')}</span>
                         </div>
                         <div className="flex justify-between items-center px-2 sm:px-4">
-                            <span className="text-gray-600 text-right flex-1">Version</span>
-                            <span className="text-gray-900 font-medium text-left flex-1 ml-2 sm:ml-4">2025.1</span>
+                            <span className="text-gray-600 text-right flex-1">{t('finderWelcome.version')}</span>
+                            <span className="text-gray-900 font-medium text-left flex-1 ml-2 sm:ml-4">{t('finderWelcome.versionValue')}</span>
                         </div>
                     </div>
 
@@ -148,14 +145,14 @@ export const FinderWelcome = ({ onMoreInfoClick }: FinderWelcomeProps) => {
                             />
 
                             {/* label */}
-                            <span className="relative z-10">More Info...</span>
+                            <span className="relative z-10">{t('finderWelcome.moreInfo')}</span>
                         </button>
                     </div>
 
                     {/* Footer */}
                     <div className="pt-2 sm:pt-3 md:pt-4 space-y-0.5 sm:space-y-1">
-                        <p className="text-[10px] sm:text-xs text-gray-500">Built with React & TypeScript</p>
-                        <p className="text-[10px] sm:text-xs text-gray-400">™ and © 2025. All Rights Reserved.</p>
+                        <p className="text-[10px] sm:text-xs text-gray-500">{t('finderWelcome.footer1')}</p>
+                        <p className="text-[10px] sm:text-xs text-gray-400">{t('finderWelcome.footer2')}</p>
                     </div>
                 </div>
             </div>

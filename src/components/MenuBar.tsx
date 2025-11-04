@@ -1,12 +1,19 @@
 import { useState, useEffect, useRef } from "react";
-import { Apple, Wifi, Battery, Volume2, Search } from "lucide-react";
+import { Apple, Wifi, Battery, Volume2, Search, Languages } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export const MenuBar = () => {
+  const { t, i18n } = useTranslation();
   const [currentTime, setCurrentTime] = useState(new Date());
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [dropdownPosition, setDropdownPosition] = useState({ left: 0 });
   const menuBarRef = useRef<HTMLDivElement>(null);
   const buttonRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+    setActiveMenu(null);
+  };
 
   // Update time every minute
   useEffect(() => {
@@ -46,87 +53,87 @@ export const MenuBar = () => {
 
   const menuItems = {
     apple: [
-      { label: 'About This Mac', divider: false },
-      { label: 'System Preferences...', divider: true },
-      { label: 'App Store...', divider: false },
-      { label: 'Recent Items', divider: true },
-      { label: 'Force Quit...', divider: true },
-      { label: 'Sleep', divider: false },
-      { label: 'Restart...', divider: false },
-      { label: 'Shut Down...', divider: false },
-      { label: 'Log Out...', divider: false },
+      { label: t('menuBar.apple.aboutThisMac'), divider: false },
+      { label: t('menuBar.apple.systemPreferences'), divider: true },
+      { label: t('menuBar.apple.appStore'), divider: false },
+      { label: t('menuBar.apple.recentItems'), divider: true },
+      { label: t('menuBar.apple.forceQuit'), divider: true },
+      { label: t('menuBar.apple.sleep'), divider: false },
+      { label: t('menuBar.apple.restart'), divider: false },
+      { label: t('menuBar.apple.shutDown'), divider: false },
+      { label: t('menuBar.apple.logOut'), divider: false },
     ],
     finder: [
-      { label: 'About Finder', divider: true },
-      { label: 'Preferences...', divider: true },
-      { label: 'Empty Trash...', divider: true },
-      { label: 'Services', divider: true },
-      { label: 'Hide Finder', divider: false },
-      { label: 'Hide Others', divider: false },
-      { label: 'Show All', divider: false },
+      { label: t('menuBar.finderMenu.aboutFinder'), divider: true },
+      { label: t('menuBar.finderMenu.preferences'), divider: true },
+      { label: t('menuBar.finderMenu.emptyTrash'), divider: true },
+      { label: t('menuBar.finderMenu.services'), divider: true },
+      { label: t('menuBar.finderMenu.hideFinder'), divider: false },
+      { label: t('menuBar.finderMenu.hideOthers'), divider: false },
+      { label: t('menuBar.finderMenu.showAll'), divider: false },
     ],
     file: [
-      { label: 'New Finder Window', divider: false },
-      { label: 'New Folder', divider: false },
-      { label: 'New Smart Folder', divider: false },
-      { label: 'New Tab', divider: true },
-      { label: 'Open', divider: false },
-      { label: 'Open With', divider: false },
-      { label: 'Close Window', divider: true },
-      { label: 'Get Info', divider: false },
-      { label: 'Rename', divider: true },
-      { label: 'Compress', divider: true },
-      { label: 'Duplicate', divider: false },
-      { label: 'Make Alias', divider: false },
-      { label: 'Quick Look', divider: false },
-      { label: 'Show Original', divider: false },
-      { label: 'Add to Sidebar', divider: true },
-      { label: 'Move to Trash', divider: false },
-      { label: 'Eject', divider: true },
-      { label: 'Find', divider: false },
+      { label: t('menuBar.fileMenu.newFinderWindow'), divider: false },
+      { label: t('menuBar.fileMenu.newFolder'), divider: false },
+      { label: t('menuBar.fileMenu.newSmartFolder'), divider: false },
+      { label: t('menuBar.fileMenu.newTab'), divider: true },
+      { label: t('menuBar.fileMenu.open'), divider: false },
+      { label: t('menuBar.fileMenu.openWith'), divider: false },
+      { label: t('menuBar.fileMenu.closeWindow'), divider: true },
+      { label: t('menuBar.fileMenu.getInfo'), divider: false },
+      { label: t('menuBar.fileMenu.rename'), divider: true },
+      { label: t('menuBar.fileMenu.compress'), divider: true },
+      { label: t('menuBar.fileMenu.duplicate'), divider: false },
+      { label: t('menuBar.fileMenu.makeAlias'), divider: false },
+      { label: t('menuBar.fileMenu.quickLook'), divider: false },
+      { label: t('menuBar.fileMenu.showOriginal'), divider: false },
+      { label: t('menuBar.fileMenu.addToSidebar'), divider: true },
+      { label: t('menuBar.fileMenu.moveToTrash'), divider: false },
+      { label: t('menuBar.fileMenu.eject'), divider: true },
+      { label: t('menuBar.fileMenu.find'), divider: false },
     ],
     edit: [
-      { label: 'Undo', divider: false },
-      { label: 'Redo', divider: true },
-      { label: 'Cut', divider: false },
-      { label: 'Copy', divider: false },
-      { label: 'Paste', divider: false },
-      { label: 'Select All', divider: true },
-      { label: 'Show Clipboard', divider: false },
+      { label: t('menuBar.editMenu.undo'), divider: false },
+      { label: t('menuBar.editMenu.redo'), divider: true },
+      { label: t('menuBar.editMenu.cut'), divider: false },
+      { label: t('menuBar.editMenu.copy'), divider: false },
+      { label: t('menuBar.editMenu.paste'), divider: false },
+      { label: t('menuBar.editMenu.selectAll'), divider: true },
+      { label: t('menuBar.editMenu.showClipboard'), divider: false },
     ],
     view: [
-      { label: 'as Icons', divider: false },
-      { label: 'as List', divider: false },
-      { label: 'as Columns', divider: false },
-      { label: 'as Cover Flow', divider: true },
-      { label: 'Clean Up', divider: false },
-      { label: 'Arrange By', divider: true },
-      { label: 'Show Path Bar', divider: false },
-      { label: 'Show Status Bar', divider: false },
-      { label: 'Show Sidebar', divider: false },
-      { label: 'Show Toolbar', divider: false },
-      { label: 'Customize Toolbar...', divider: true },
-      { label: 'Show View Options', divider: false },
+      { label: t('menuBar.viewMenu.asIcons'), divider: false },
+      { label: t('menuBar.viewMenu.asList'), divider: false },
+      { label: t('menuBar.viewMenu.asColumns'), divider: false },
+      { label: t('menuBar.viewMenu.asCoverFlow'), divider: true },
+      { label: t('menuBar.viewMenu.cleanUp'), divider: false },
+      { label: t('menuBar.viewMenu.arrangeBy'), divider: true },
+      { label: t('menuBar.viewMenu.showPathBar'), divider: false },
+      { label: t('menuBar.viewMenu.showStatusBar'), divider: false },
+      { label: t('menuBar.viewMenu.showSidebar'), divider: false },
+      { label: t('menuBar.viewMenu.showToolbar'), divider: false },
+      { label: t('menuBar.viewMenu.customizeToolbar'), divider: true },
+      { label: t('menuBar.viewMenu.showViewOptions'), divider: false },
     ],
     window: [
-      { label: 'Minimize', divider: false },
-      { label: 'Zoom', divider: true },
-      { label: 'Cycle Through Windows', divider: true },
-      { label: 'Bring All to Front', divider: false },
+      { label: t('menuBar.windowMenu.minimize'), divider: false },
+      { label: t('menuBar.windowMenu.zoom'), divider: true },
+      { label: t('menuBar.windowMenu.cycleThroughWindows'), divider: true },
+      { label: t('menuBar.windowMenu.bringAllToFront'), divider: false },
     ],
     help: [
-      { label: 'Mac Help', divider: true },
-      { label: 'Search', divider: false },
+      { label: t('menuBar.helpMenu.macHelp'), divider: true },
+      { label: t('menuBar.helpMenu.search'), divider: false },
     ],
   };
 
   const menus = [
-    { id: 'finder', label: 'Finder' },
-    { id: 'file', label: 'File' },
-    { id: 'edit', label: 'Edit' },
-    { id: 'view', label: 'View' },
-    { id: 'window', label: 'Window' },
-    { id: 'help', label: 'Help' }
+    { id: 'finder', label: t('menuBar.menus.finder') },
+    { id: 'file', label: t('menuBar.menus.file') },
+    { id: 'edit', label: t('menuBar.menus.edit') },
+    { id: 'view', label: t('menuBar.menus.view') },
+    { id: 'window', label: t('menuBar.menus.window') },
+    { id: 'help', label: t('menuBar.menus.help') }
   ];
 
   const handleMenuClick = (menuId: string) => {
@@ -240,6 +247,65 @@ export const MenuBar = () => {
         <button className="h-6 w-6 flex items-center justify-center hover:bg-blue-500/30 transition-colors rounded">
           <Search className="w-3.5 h-3.5 text-gray-800" />
         </button>
+
+        {/* Language Switcher */}
+        <div className="relative">
+          <button
+            ref={(el) => (buttonRefs.current['language'] = el)}
+            className={`h-6 px-2 flex items-center justify-center gap-1 transition-colors rounded ${
+              activeMenu === 'language' ? 'bg-blue-500/40' : 'hover:bg-blue-500/30'
+            }`}
+            onClick={() => handleMenuClick('language')}
+          >
+            <Languages className="w-3.5 h-3.5 text-gray-800" />
+            <span className="text-[10px] font-medium text-gray-800" style={{ textShadow: '0 1px 0 rgba(255, 255, 255, 0.8)' }}>
+              {i18n.language.toUpperCase()}
+            </span>
+          </button>
+
+          {activeMenu === 'language' && (
+            <div
+              className="fixed top-6 animate-in fade-in duration-150 z-[101]"
+              style={{
+                left: `${dropdownPosition.left}px`,
+                minWidth: '120px',
+              }}
+            >
+              <div
+                className="rounded-lg shadow-2xl overflow-hidden"
+                style={{
+                  background: 'linear-gradient(180deg, rgba(245, 245, 247, 0.98) 0%, rgba(235, 235, 237, 0.98) 100%)',
+                  backdropFilter: 'blur(30px)',
+                  WebkitBackdropFilter: 'blur(30px)',
+                  border: '1px solid rgba(0, 0, 0, 0.15)',
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.2)',
+                }}
+              >
+                <button
+                  className={`w-full px-4 py-1.5 text-left text-xs transition-colors flex items-center justify-between ${
+                    i18n.language === 'en' ? 'bg-blue-500 text-white' : 'text-gray-800 hover:bg-blue-500 hover:text-white'
+                  }`}
+                  onClick={() => changeLanguage('en')}
+                  style={{ textShadow: 'none' }}
+                >
+                  <span>English</span>
+                  {i18n.language === 'en' && <span>✓</span>}
+                </button>
+                <button
+                  className={`w-full px-4 py-1.5 text-left text-xs transition-colors flex items-center justify-between ${
+                    i18n.language === 'id' ? 'bg-blue-500 text-white' : 'text-gray-800 hover:bg-blue-500 hover:text-white'
+                  }`}
+                  onClick={() => changeLanguage('id')}
+                  style={{ textShadow: 'none' }}
+                >
+                  <span>Indonesia</span>
+                  {i18n.language === 'id' && <span>✓</span>}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
         <button className="h-6 w-6 flex items-center justify-center hover:bg-blue-500/30 transition-colors rounded">
           <Battery className="w-3.5 h-3.5 text-gray-800" />
         </button>

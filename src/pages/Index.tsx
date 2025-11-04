@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Dock, DockItem } from "@/components/Dock";
 import { Window } from "@/components/Window";
 import { MenuBar } from "@/components/MenuBar";
@@ -25,15 +26,16 @@ interface OpenWindow {
 }
 
 const Index = () => {
+    const { t } = useTranslation();
     const [openWindows, setOpenWindows] = useState<OpenWindow[]>([]);
     const [maxZIndex, setMaxZIndex] = useState(10);
 
     const dockItems: DockItem[] = [
-        { id: "home", label: "Home", iconSrc: HomeIcon, onClick: () => handleWindowToggle("home") },
-        { id: "about", label: "About Me", iconSrc: UserIcon, onClick: () => handleWindowToggle("about") },
-        { id: "journey", label: "Journey", iconSrc: JourneyIcon, onClick: () => handleWindowToggle("journey") },
-        { id: "work", label: "Work", iconSrc: FolderIcon, onClick: () => handleWindowToggle("work") },
-        { id: "contact", label: "Contact", iconSrc: MailIcon, onClick: () => handleWindowToggle("contact") },
+        { id: "home", label: t('dock.home'), iconSrc: HomeIcon, onClick: () => handleWindowToggle("home") },
+        { id: "about", label: t('dock.about'), iconSrc: UserIcon, onClick: () => handleWindowToggle("about") },
+        { id: "journey", label: t('dock.journey'), iconSrc: JourneyIcon, onClick: () => handleWindowToggle("journey") },
+        { id: "work", label: t('dock.work'), iconSrc: FolderIcon, onClick: () => handleWindowToggle("work") },
+        { id: "contact", label: t('dock.contact'), iconSrc: MailIcon, onClick: () => handleWindowToggle("contact") },
     ];
 
     const handleWindowToggle = (windowId: WindowType) => {
@@ -117,11 +119,11 @@ const Index = () => {
         if (isMinimized) return null;
 
         const windowComponents = {
-            home: { title: "Home", component: <HomeWindow /> },
-            about: { title: "About Me", component: <AboutWindow /> },
-            journey: { title: "My Journey", component: <JourneyWindow /> },
-            work: { title: "My Work", component: <WorkWindow /> },
-            contact: { title: "Contact Me", component: <ContactWindow /> },
+            home: { title: t('windowTitles.home'), component: <HomeWindow /> },
+            about: { title: t('windowTitles.about'), component: <AboutWindow /> },
+            journey: { title: t('windowTitles.journey'), component: <JourneyWindow /> },
+            work: { title: t('windowTitles.work'), component: <WorkWindow /> },
+            contact: { title: t('windowTitles.contact'), component: <ContactWindow /> },
         };
 
         const { title, component } = windowComponents[id];

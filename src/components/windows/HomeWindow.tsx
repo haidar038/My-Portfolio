@@ -1,6 +1,8 @@
 import { Sparkles } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export const HomeWindow = () => {
+  const { t } = useTranslation();
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
@@ -9,26 +11,24 @@ export const HomeWindow = () => {
         </div>
         <div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
-            Welcome!
+            {t('home.title')}
           </h1>
-          <p className="text-gray-600">Your vintage macOS portfolio</p>
+          <p className="text-gray-600">{t('home.subtitle')}</p>
         </div>
       </div>
 
       <div className="prose prose-sm max-w-none">
         <p className="text-gray-700 leading-relaxed">
-          Welcome to my portfolio website! This site is designed with a nostalgic touch, 
-          inspired by the classic macOS interface. Navigate through different sections 
-          using the dock at the bottom of the screen.
+          {t('home.intro')}
         </p>
 
         <div className="mt-6 p-4 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-lg border border-cyan-200/50">
-          <h3 className="text-sm font-semibold text-cyan-900 mb-2">Getting Started</h3>
+          <h3 className="text-sm font-semibold text-cyan-900 mb-2">{t('home.gettingStartedTitle')}</h3>
           <ul className="text-sm text-gray-700 space-y-1 list-disc list-inside">
-            <li>Click icons in the dock to open windows</li>
-            <li>Drag windows by their title bar to reposition</li>
-            <li>Close windows using the red button</li>
-            <li>Explore my journey, projects, and get in touch!</li>
+            <li>{t('home.tip1')}</li>
+            <li>{t('home.tip2')}</li>
+            <li>{t('home.tip3')}</li>
+            <li>{t('home.tip4')}</li>
           </ul>
         </div>
       </div>
