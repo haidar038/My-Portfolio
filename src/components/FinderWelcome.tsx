@@ -1,4 +1,4 @@
-import { Monitor } from "lucide-react";
+import { Monitor, Languages } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 interface FinderWelcomeProps {
@@ -6,7 +6,12 @@ interface FinderWelcomeProps {
 }
 
 export const FinderWelcome = ({ onMoreInfoClick }: FinderWelcomeProps) => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+
+    const toggleLanguage = () => {
+        const newLang = i18n.language === 'en' ? 'id' : 'en';
+        i18n.changeLanguage(newLang);
+    };
     return (
         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[8] w-[95%] sm:w-[90%] max-w-md pointer-events-none">
             <div
@@ -98,7 +103,7 @@ export const FinderWelcome = ({ onMoreInfoClick }: FinderWelcomeProps) => {
                     </div>
 
                     {/* Button (TSX-only, based on your style.sass) */}
-                    <div className="pt-1 sm:pt-2 pointer-events-auto">
+                    <div className="pt-1 sm:pt-2 pointer-events-auto space-y-2 sm:space-y-3">
                         <button
                             type="button"
                             aria-label="More information"
@@ -146,6 +151,58 @@ export const FinderWelcome = ({ onMoreInfoClick }: FinderWelcomeProps) => {
 
                             {/* label */}
                             <span className="relative z-10">{t('finderWelcome.moreInfo')}</span>
+                        </button>
+
+                        {/* Language Switcher Button */}
+                        <button
+                            type="button"
+                            aria-label="Switch language"
+                            onClick={toggleLanguage}
+                            className="group relative overflow-hidden rounded-full px-4 sm:px-6 py-1.5 sm:py-2 text-[10px] sm:text-xs font-semibold text-white transition-all duration-200 ease-in-out focus:outline-none hover:scale-105 active:scale-95 flex items-center justify-center gap-1.5 sm:gap-2 mx-auto"
+                            style={{
+                                background: `radial-gradient(farthest-corner at 50% 100%, rgba(255,255,255,0.6), transparent), linear-gradient(to bottom, #6b7280, #4b5563)`,
+                                boxShadow: "0 3px 3px rgba(0,0,0,0.3)",
+                                border: "1px solid rgba(255,255,255,0.1)",
+                                textShadow: "0 1px 0.3em rgba(0,0,0,0.3)",
+                                cursor: "pointer",
+                                WebkitTapHighlightColor: "transparent",
+                            }}
+                        >
+                            {/* glossy highlight */}
+                            <span
+                                aria-hidden
+                                className="absolute left-[3%] top-[4%] w-[94%] h-[40%] rounded-full pointer-events-none transition-all duration-300 group-hover:opacity-100 group-hover:h-[45%]"
+                                style={{
+                                    background: "linear-gradient(to bottom, rgba(255,255,255,0.7), rgba(255,255,255,0.05))",
+                                    opacity: 0.8,
+                                    transform: "translateZ(0)",
+                                }}
+                            />
+
+                            {/* subtle inner shadow layer */}
+                            <span
+                                aria-hidden
+                                className="absolute inset-0 pointer-events-none transition-all duration-200 group-hover:opacity-80"
+                                style={{
+                                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -4px 12px rgba(0,0,0,0.12)",
+                                    borderRadius: "9999px",
+                                }}
+                            />
+
+                            {/* Hover glow effect */}
+                            <span
+                                aria-hidden
+                                className="absolute inset-0 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                style={{
+                                    boxShadow: "0 0 15px rgba(107, 114, 128, 0.5), 0 0 30px rgba(107, 114, 128, 0.2)",
+                                }}
+                            />
+
+                            {/* label */}
+                            <Languages className="w-3 h-3 sm:w-3.5 sm:h-3.5 relative z-10" />
+                            <span className="relative z-10">
+                                {i18n.language === 'en' ? 'English' : 'Indonesia'}
+                            </span>
                         </button>
                     </div>
 
