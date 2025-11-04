@@ -12,6 +12,15 @@ export default {
         "2xl": "1400px",
       },
     },
+    screens: {
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      'laptop': '1366px',
+      '2xl': '1536px',
+      'desktop': '1920px',
+    },
     extend: {
       fontFamily: {
         'sans': ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],

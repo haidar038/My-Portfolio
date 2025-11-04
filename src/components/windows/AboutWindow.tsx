@@ -1,13 +1,18 @@
-import { User, Heart, Code, Coffee } from "lucide-react";
+import { Heart, Code, Coffee } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import ProfilePic from "@/assets/DarDev.png";
 
 export const AboutWindow = () => {
   const { t } = useTranslation();
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center shadow-lg">
-          <User className="w-8 h-8 text-white" />
+        <div className="w-20 h-20 laptop:w-24 laptop:h-24 rounded-full overflow-hidden shadow-lg ring-4 ring-purple-400/30">
+          <img
+            src={ProfilePic}
+            alt="Profile"
+            className="w-full h-full object-cover"
+          />
         </div>
         <div>
           <h2 className="text-2xl font-bold text-gray-800">{t('about.title')}</h2>

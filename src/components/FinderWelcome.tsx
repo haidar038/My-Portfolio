@@ -13,7 +13,7 @@ export const FinderWelcome = ({ onMoreInfoClick }: FinderWelcomeProps) => {
         i18n.changeLanguage(newLang);
     };
     return (
-        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[8] w-[95%] sm:w-[90%] max-w-md pointer-events-none">
+        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[8] w-[95%] sm:w-[90%] laptop:w-[85%] max-w-md laptop:max-w-lg desktop:max-w-xl pointer-events-none">
             <div
                 className="rounded-xl sm:rounded-2xl border border-gray-300/80 animate-fade-in overflow-hidden shadow-2xl pointer-events-none"
                 style={{
@@ -23,7 +23,7 @@ export const FinderWelcome = ({ onMoreInfoClick }: FinderWelcomeProps) => {
             >
                 {/* Window Controls */}
                 <div
-                    className="h-9 sm:h-11 flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 border-b border-gray-300/60 pointer-events-none"
+                    className="h-9 sm:h-10 laptop:h-11 flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 border-b border-gray-300/60 pointer-events-none"
                     style={{
                         background: "linear-gradient(180deg, #fafafa 0%, #f0f0f2 100%)",
                     }}
@@ -60,55 +60,55 @@ export const FinderWelcome = ({ onMoreInfoClick }: FinderWelcomeProps) => {
                 </div>
 
                 {/* Content - About Mac Style */}
-                <div className="p-4 sm:p-6 md:p-8 text-center space-y-4 sm:space-y-5 md:space-y-6 pointer-events-none">
+                <div className="p-4 sm:p-5 laptop:p-6 desktop:p-8 text-center space-y-3 sm:space-y-4 laptop:space-y-5 desktop:space-y-6 pointer-events-none">
                     {/* Monitor/Laptop Icon */}
                     <div className="flex justify-center">
                         <div
-                            className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-2xl sm:rounded-3xl flex items-center justify-center"
+                            className="w-16 h-16 sm:w-20 sm:h-20 laptop:w-24 laptop:h-24 desktop:w-32 desktop:h-32 rounded-2xl sm:rounded-3xl flex items-center justify-center"
                             style={{
                                 background: "linear-gradient(135deg, #6dd5ed 0%, #2193b0 100%)",
                                 boxShadow: "0 10px 30px rgba(33, 147, 176, 0.3), inset 0 -2px 10px rgba(0, 0, 0, 0.1), inset 0 2px 10px rgba(255, 255, 255, 0.3)",
                             }}
                         >
-                            <Monitor className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-white" strokeWidth={1.5} />
+                            <Monitor className="w-8 h-8 sm:w-10 sm:h-10 laptop:w-12 laptop:h-12 desktop:w-16 desktop:h-16 text-white" strokeWidth={1.5} />
                         </div>
                     </div>
 
                     {/* Title */}
                     <div>
-                        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1 leading-tight">
+                        <h1 className="text-lg sm:text-xl laptop:text-2xl desktop:text-3xl font-bold text-gray-900 mb-1 leading-tight">
                             {t('finderWelcome.title')}
                         </h1>
-                        <p className="text-xs sm:text-sm text-gray-500">{t('finderWelcome.subtitle')}</p>
+                        <p className="text-xs sm:text-sm laptop:text-base text-gray-500">{t('finderWelcome.subtitle')}</p>
                     </div>
 
                     {/* Specs/Info */}
-                    <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-                        <div className="flex justify-between items-center px-2 sm:px-4">
+                    <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm laptop:text-base">
+                        <div className="flex justify-between items-center px-2 sm:px-4 laptop:px-6">
                             <span className="text-gray-600 text-right flex-1">{t('finderWelcome.role')}</span>
                             <span className="text-gray-900 font-medium text-left flex-1 ml-2 sm:ml-4">{t('finderWelcome.roleValue')}</span>
                         </div>
-                        <div className="flex justify-between items-center px-2 sm:px-4">
+                        <div className="flex justify-between items-center px-2 sm:px-4 laptop:px-6">
                             <span className="text-gray-600 text-right flex-1">{t('finderWelcome.experience')}</span>
                             <span className="text-gray-900 font-medium text-left flex-1 ml-2 sm:ml-4">{t('finderWelcome.experienceValue')}</span>
                         </div>
-                        <div className="flex justify-between items-center px-2 sm:px-4">
+                        <div className="flex justify-between items-center px-2 sm:px-4 laptop:px-6">
                             <span className="text-gray-600 text-right flex-1">{t('finderWelcome.status')}</span>
                             <span className="text-gray-900 font-medium text-left flex-1 ml-2 sm:ml-4">{t('finderWelcome.statusValue')}</span>
                         </div>
-                        <div className="flex justify-between items-center px-2 sm:px-4">
+                        <div className="flex justify-between items-center px-2 sm:px-4 laptop:px-6">
                             <span className="text-gray-600 text-right flex-1">{t('finderWelcome.version')}</span>
                             <span className="text-gray-900 font-medium text-left flex-1 ml-2 sm:ml-4">{t('finderWelcome.versionValue')}</span>
                         </div>
                     </div>
 
                     {/* Button (TSX-only, based on your style.sass) */}
-                    <div className="pt-1 sm:pt-2 pointer-events-auto space-y-2 sm:space-y-3">
+                    <div className="pt-1 sm:pt-2 laptop:pt-3 pointer-events-auto space-y-2 sm:space-y-3">
                         <button
                             type="button"
                             aria-label="More information"
                             onClick={onMoreInfoClick}
-                            className="group relative overflow-hidden rounded-full px-6 sm:px-8 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-white transition-all duration-200 ease-in-out focus:outline-none hover:scale-105 active:scale-95"
+                            className="group relative overflow-hidden rounded-full px-5 sm:px-7 laptop:px-8 desktop:px-10 py-2 sm:py-2.5 laptop:py-3 desktop:py-3.5 text-xs sm:text-sm laptop:text-base font-semibold text-white transition-all duration-200 ease-in-out focus:outline-none hover:scale-105 active:scale-95"
                             style={{
                                 // bottom glow + vertical gradient with Royal Blue
                                 background: `radial-gradient(farthest-corner at 50% 100%, rgba(255,255,255,0.7), transparent), linear-gradient(to bottom, #1e3a8a, #305CDE)`,
@@ -158,7 +158,7 @@ export const FinderWelcome = ({ onMoreInfoClick }: FinderWelcomeProps) => {
                             type="button"
                             aria-label="Switch language"
                             onClick={toggleLanguage}
-                            className="group relative overflow-hidden rounded-full px-4 sm:px-6 py-1.5 sm:py-2 text-[10px] sm:text-xs font-semibold text-white transition-all duration-200 ease-in-out focus:outline-none hover:scale-105 active:scale-95 flex items-center justify-center gap-1.5 sm:gap-2 mx-auto"
+                            className="group relative overflow-hidden rounded-full px-3 sm:px-5 laptop:px-6 py-1.5 sm:py-2 laptop:py-2.5 text-[10px] sm:text-xs laptop:text-sm font-semibold text-white transition-all duration-200 ease-in-out focus:outline-none hover:scale-105 active:scale-95 flex items-center justify-center gap-1.5 sm:gap-2 mx-auto"
                             style={{
                                 background: `radial-gradient(farthest-corner at 50% 100%, rgba(255,255,255,0.6), transparent), linear-gradient(to bottom, #6b7280, #4b5563)`,
                                 boxShadow: "0 3px 3px rgba(0,0,0,0.3)",
@@ -207,9 +207,9 @@ export const FinderWelcome = ({ onMoreInfoClick }: FinderWelcomeProps) => {
                     </div>
 
                     {/* Footer */}
-                    <div className="pt-2 sm:pt-3 md:pt-4 space-y-0.5 sm:space-y-1">
-                        <p className="text-[10px] sm:text-xs text-gray-500">{t('finderWelcome.footer1')}</p>
-                        <p className="text-[10px] sm:text-xs text-gray-400">{t('finderWelcome.footer2')}</p>
+                    <div className="pt-2 sm:pt-3 laptop:pt-4 space-y-0.5 sm:space-y-1">
+                        <p className="text-[10px] sm:text-xs laptop:text-sm text-gray-500">{t('finderWelcome.footer1')}</p>
+                        <p className="text-[10px] sm:text-xs laptop:text-sm text-gray-400">{t('finderWelcome.footer2')}</p>
                     </div>
                 </div>
             </div>
