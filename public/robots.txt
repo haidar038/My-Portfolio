@@ -12,3 +12,6 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Sitemap (Update with your actual domain)
+Sitemap: https://haidar038.vercel.app/sitemap.xml

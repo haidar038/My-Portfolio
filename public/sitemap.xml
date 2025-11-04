@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+    <!-- Homepage -->
+    <url>
+        <loc>https://haidar038.vercel.app/</loc>
+        <lastmod>2025-01-04</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+
+        <!-- Alternate language versions -->
+        <xhtml:link rel="alternate" hreflang="en" href="https://haidar038.vercel.app/?lang=en" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://haidar038.vercel.app/?lang=id" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://haidar038.vercel.app/" />
+    </url>
+
+    <!-- Note: Since this is a Single Page Application (SPA),
+         all content is on the homepage. If you add separate routes in the future,
+         add them here following the same format. -->
+
+</urlset>
