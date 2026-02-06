@@ -1,27 +1,30 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense, lazy } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Dock, DockItem } from "@/components/Dock";
 import { Window } from "@/components/Window";
 import { MenuBar } from "@/components/MenuBar";
 import { FinderWelcome } from "@/components/FinderWelcome";
-import { HomeWindow } from "@/components/windows/HomeWindow";
-import { AboutWindow } from "@/components/windows/AboutWindow";
-import { JourneyWindow } from "@/components/windows/JourneyWindow";
-import { WorkWindow } from "@/components/windows/WorkWindow";
-import { ContactWindow } from "@/components/windows/ContactWindow";
-import backgroundImage from "@/assets/materialdictionary206_35.jpg";
-import darkBackgroundImage from "@/assets/DarkThemeBackround.png";
-import HomeIcon from "@/assets/icons/HomeIcon.png";
-import UserIcon from "@/assets/icons/UserIcon.png";
-import JourneyIcon from "@/assets/icons/JourneyIcon.png";
-import FolderIcon from "@/assets/icons/FolderIcon.png";
-import MailIcon from "@/assets/icons/MailIcon.png";
-import HomeIconDark from "@/assets/icons/dark-theme-icons/HomeIconDark.png";
-import UserIconDark from "@/assets/icons/dark-theme-icons/UserIconDark.png";
-import JourneyIconDark from "@/assets/icons/dark-theme-icons/JourneyIconDark.png";
-import FolderIconDark from "@/assets/icons/dark-theme-icons/FolderIconDark.png";
-import MailIconDark from "@/assets/icons/dark-theme-icons/MailIconDark.png";
+
+// Lazy load window components
+const HomeWindow = lazy(() => import("@/components/windows/HomeWindow").then((module) => ({ default: module.HomeWindow })));
+const AboutWindow = lazy(() => import("@/components/windows/AboutWindow").then((module) => ({ default: module.AboutWindow })));
+const JourneyWindow = lazy(() => import("@/components/windows/JourneyWindow").then((module) => ({ default: module.JourneyWindow })));
+const WorkWindow = lazy(() => import("@/components/windows/WorkWindow").then((module) => ({ default: module.WorkWindow })));
+const ContactWindow = lazy(() => import("@/components/windows/ContactWindow").then((module) => ({ default: module.ContactWindow })));
+
+import backgroundImage from "@/assets/materialdictionary206_35.webp";
+import darkBackgroundImage from "@/assets/DarkThemeBackround.webp";
+import HomeIcon from "@/assets/icons/HomeIcon.webp";
+import UserIcon from "@/assets/icons/UserIcon.webp";
+import JourneyIcon from "@/assets/icons/JourneyIcon.webp";
+import FolderIcon from "@/assets/icons/FolderIcon.webp";
+import MailIcon from "@/assets/icons/MailIcon.webp";
+import HomeIconDark from "@/assets/icons/dark-theme-icons/HomeIconDark.webp";
+import UserIconDark from "@/assets/icons/dark-theme-icons/UserIconDark.webp";
+import JourneyIconDark from "@/assets/icons/dark-theme-icons/JourneyIconDark.webp";
+import FolderIconDark from "@/assets/icons/dark-theme-icons/FolderIconDark.webp";
+import MailIconDark from "@/assets/icons/dark-theme-icons/MailIconDark.webp";
 
 type WindowType = "home" | "about" | "journey" | "work" | "contact";
 
@@ -39,11 +42,11 @@ const Index = () => {
     const [maxZIndex, setMaxZIndex] = useState(10);
 
     const dockItems: DockItem[] = [
-        { id: "home", label: t('dock.home'), iconSrc: isDarkMode ? HomeIconDark : HomeIcon, onClick: () => handleWindowToggle("home") },
-        { id: "about", label: t('dock.about'), iconSrc: isDarkMode ? UserIconDark : UserIcon, onClick: () => handleWindowToggle("about") },
-        { id: "journey", label: t('dock.journey'), iconSrc: isDarkMode ? JourneyIconDark : JourneyIcon, onClick: () => handleWindowToggle("journey") },
-        { id: "work", label: t('dock.work'), iconSrc: isDarkMode ? FolderIconDark : FolderIcon, onClick: () => handleWindowToggle("work") },
-        { id: "contact", label: t('dock.contact'), iconSrc: isDarkMode ? MailIconDark : MailIcon, onClick: () => handleWindowToggle("contact") },
+        { id: "home", label: t("dock.home"), iconSrc: isDarkMode ? HomeIconDark : HomeIcon, onClick: () => handleWindowToggle("home") },
+        { id: "about", label: t("dock.about"), iconSrc: isDarkMode ? UserIconDark : UserIcon, onClick: () => handleWindowToggle("about") },
+        { id: "journey", label: t("dock.journey"), iconSrc: isDarkMode ? JourneyIconDark : JourneyIcon, onClick: () => handleWindowToggle("journey") },
+        { id: "work", label: t("dock.work"), iconSrc: isDarkMode ? FolderIconDark : FolderIcon, onClick: () => handleWindowToggle("work") },
+        { id: "contact", label: t("dock.contact"), iconSrc: isDarkMode ? MailIconDark : MailIcon, onClick: () => handleWindowToggle("contact") },
     ];
 
     const handleWindowToggle = (windowId: WindowType) => {
@@ -54,9 +57,7 @@ const Index = () => {
                 // Restore from minimize
                 const newZIndex = maxZIndex + 1;
                 setMaxZIndex(newZIndex);
-                setOpenWindows(openWindows.map((w) =>
-                    w.id === windowId ? { ...w, isMinimized: false, zIndex: newZIndex } : w
-                ));
+                setOpenWindows(openWindows.map((w) => (w.id === windowId ? { ...w, isMinimized: false, zIndex: newZIndex } : w)));
             } else {
                 // Close window
                 setOpenWindows(openWindows.filter((w) => w.id !== windowId));
@@ -80,15 +81,11 @@ const Index = () => {
     };
 
     const handleWindowMinimize = (windowId: WindowType) => {
-        setOpenWindows(openWindows.map((w) =>
-            w.id === windowId ? { ...w, isMinimized: true } : w
-        ));
+        setOpenWindows(openWindows.map((w) => (w.id === windowId ? { ...w, isMinimized: true } : w)));
     };
 
     const handleWindowFullscreen = (windowId: WindowType) => {
-        setOpenWindows(openWindows.map((w) =>
-            w.id === windowId ? { ...w, isFullscreen: !w.isFullscreen } : w
-        ));
+        setOpenWindows(openWindows.map((w) => (w.id === windowId ? { ...w, isFullscreen: !w.isFullscreen } : w)));
     };
 
     const getWindowPosition = (index: number) => {
@@ -107,7 +104,7 @@ const Index = () => {
         if (isMobile) {
             return {
                 x: Math.max(10, centerX),
-                y: Math.max(20, centerY)
+                y: Math.max(20, centerY),
             };
         }
 
@@ -116,8 +113,8 @@ const Index = () => {
         const randomOffsetY = Math.floor(Math.random() * 60) - 30;
 
         return {
-            x: Math.max(20, centerX + randomOffsetX + (index * 20)),
-            y: Math.max(40, centerY + randomOffsetY + (index * 15))
+            x: Math.max(20, centerX + randomOffsetX + index * 20),
+            y: Math.max(40, centerY + randomOffsetY + index * 15),
         };
     };
 
@@ -127,14 +124,21 @@ const Index = () => {
         if (isMinimized) return null;
 
         const windowComponents = {
-            home: { title: t('windowTitles.home'), component: <HomeWindow /> },
-            about: { title: t('windowTitles.about'), component: <AboutWindow /> },
-            journey: { title: t('windowTitles.journey'), component: <JourneyWindow /> },
-            work: { title: t('windowTitles.work'), component: <WorkWindow /> },
-            contact: { title: t('windowTitles.contact'), component: <ContactWindow /> },
+            home: { title: t("windowTitles.home"), component: <HomeWindow /> },
+            about: { title: t("windowTitles.about"), component: <AboutWindow /> },
+            journey: { title: t("windowTitles.journey"), component: <JourneyWindow /> },
+            work: { title: t("windowTitles.work"), component: <WorkWindow /> },
+            contact: { title: t("windowTitles.contact"), component: <ContactWindow /> },
         };
 
         const { title, component } = windowComponents[id];
+
+        // Loading spinner for window content
+        const LoadingState = () => (
+            <div className="w-full h-full flex items-center justify-center">
+                <div className="w-8 h-8 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+        );
 
         return (
             <Window
@@ -148,7 +152,7 @@ const Index = () => {
                 onFocus={() => handleWindowFocus(id)}
                 isFullscreen={isFullscreen}
             >
-                {component}
+                <Suspense fallback={<LoadingState />}>{component}</Suspense>
             </Window>
         );
     };
@@ -157,7 +161,6 @@ const Index = () => {
         <div
             className="w-full relative overflow-hidden touch-none mobile-bg-scroll transition-all duration-500"
             style={{
-                minHeight: "100vh",
                 minHeight: "100dvh", // Dynamic viewport height for mobile
                 height: "100%",
                 backgroundImage: isDarkMode ? `url(${darkBackgroundImage})` : `url(${backgroundImage})`,
@@ -174,7 +177,6 @@ const Index = () => {
                     background: isDarkMode
                         ? "radial-gradient(ellipse at top, rgba(30, 41, 59, 0.2) 0%, rgba(15, 23, 42, 0.3) 50%, rgba(0, 0, 0, 0.4) 100%)"
                         : "radial-gradient(ellipse at top, rgba(135, 206, 250, 0.3) 0%, rgba(100, 180, 240, 0.25) 30%, rgba(70, 150, 220, 0.2) 60%, rgba(50, 120, 200, 0.15) 100%)",
-                    minHeight: "100vh",
                     minHeight: "100dvh",
                 }}
             />
@@ -189,7 +191,6 @@ const Index = () => {
             <div
                 className="relative w-full pt-0 md:pt-6 pb-24"
                 style={{
-                    minHeight: "100vh",
                     minHeight: "100dvh",
                 }}
             >
@@ -197,7 +198,7 @@ const Index = () => {
             </div>
 
             {/* Dock */}
-            <Dock items={dockItems} activeItems={openWindows.filter(w => !w.isMinimized).map((w) => w.id)} />
+            <Dock items={dockItems} activeItems={openWindows.filter((w) => !w.isMinimized).map((w) => w.id)} />
         </div>
     );
 };
