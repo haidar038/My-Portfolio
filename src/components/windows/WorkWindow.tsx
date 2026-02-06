@@ -2,6 +2,10 @@ import { Folder, ExternalLink, Star, ChevronLeft, ChevronRight, Home, Github } f
 import { useTheme } from "@/contexts/ThemeContext";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import BrushIcon from "@/assets/icons/Brush.png";
+import BrushDarkIcon from "@/assets/icons/dark-theme-icons/BrushDark.png";
+import WebDevIcon from "@/assets/icons/WebDev.png";
+import WebDevDarkIcon from "@/assets/icons/dark-theme-icons/WebDevDark.png";
 
 type Category = "graphic-design" | "web-development" | null;
 
@@ -14,15 +18,15 @@ export const WorkWindow = () => {
         {
             id: "graphic-design" as Category,
             name: t("work.graphicDesign"),
-            iconLight: "@/src/assets/icons/Brush.png",
-            iconDark: "@/src/assets/icons/dark-theme-icons/BrushDark.png",
+            iconLight: BrushIcon,
+            iconDark: BrushDarkIcon,
             description: t("work.graphicDesignDesc"),
         },
         {
             id: "web-development" as Category,
             name: t("work.webDevelopment"),
-            iconLight: "@/src/assets/icons/WebDev.png",
-            iconDark: "@/src/assets/icons/dark-theme-icons/WebDevDark.png",
+            iconLight: WebDevIcon,
+            iconDark: WebDevDarkIcon,
             description: t("work.webDevelopmentDesc"),
         },
     ];
