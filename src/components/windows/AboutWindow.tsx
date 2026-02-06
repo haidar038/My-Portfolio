@@ -1,4 +1,5 @@
 import { Heart, Code, Coffee } from "lucide-react";
+import StackIcon from "tech-stack-icons";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@/contexts/ThemeContext";
 import ProfilePic from "@/assets/DarDev.png";
@@ -152,6 +153,143 @@ export const AboutWindow = () => {
                         >
                             {t("about.coffeePoweredDesc")}
                         </p>
+                    </div>
+                </div>
+
+                {/* Divider */}
+                <div
+                    className="w-full h-px my-8"
+                    style={{
+                        background: isDarkMode ? "linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))" : "linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05))",
+                    }}
+                />
+
+                <div className="mt-12">
+                    <h3
+                        className="text-lg font-semibold mb-1 transition-colors duration-300"
+                        style={{
+                            color: isDarkMode ? "#f8fafc" : "#1f2937",
+                        }}
+                    >
+                        {t("about.skills")}
+                    </h3>
+                    <p
+                        className="text-sm mb-4 transition-colors duration-300"
+                        style={{
+                            color: isDarkMode ? "#cbd5e1" : "#4b5563",
+                        }}
+                    >
+                        {t("about.skillsDesc")}
+                    </p>
+
+                    <div className="space-y-6">
+                        {/* Frontend */}
+                        <div>
+                            <h4
+                                className="text-xs font-semibold uppercase tracking-wider mb-3 transition-colors duration-300"
+                                style={{
+                                    color: isDarkMode ? "#94a3b8" : "#6b7280",
+                                }}
+                            >
+                                {t("about.frontend")}
+                            </h4>
+                            <div className="flex flex-wrap gap-3">
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="HTML5">
+                                    <StackIcon name="html5" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="CSS3">
+                                    <StackIcon name="css3" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="JavaScript">
+                                    <StackIcon name="js" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="TypeScript">
+                                    <StackIcon name="typescript" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="React">
+                                    <StackIcon name="react" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="Tailwind CSS">
+                                    <StackIcon name="tailwindcss" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="Bootstrap">
+                                    <StackIcon name="bootstrap4" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Backend & Tools */}
+                        <div>
+                            <h4
+                                className="text-xs font-semibold uppercase tracking-wider mb-3 transition-colors duration-300"
+                                style={{
+                                    color: isDarkMode ? "#94a3b8" : "#6b7280",
+                                }}
+                            >
+                                {t("about.backend")}
+                            </h4>
+                            <div className="flex flex-wrap gap-3">
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="Python">
+                                    <StackIcon name="python" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="Flask">
+                                    <StackIcon name="flask" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="Node.js">
+                                    <StackIcon name="nodejs" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="Supabase">
+                                    <StackIcon name="supabase" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="MySQL">
+                                    <StackIcon name="mysql" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="PostgreSQL">
+                                    <StackIcon name="postgresql" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="Git">
+                                    <StackIcon name="git" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="GitHub">
+                                    <StackIcon name="github" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="Vite">
+                                    <StackIcon name="vitejs" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="Bun">
+                                    <StackIcon name="bunjs" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="npm">
+                                    <StackIcon name="npm" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Design */}
+                        <div>
+                            <h4
+                                className="text-xs font-semibold uppercase tracking-wider mb-3 transition-colors duration-300"
+                                style={{
+                                    color: isDarkMode ? "#94a3b8" : "#6b7280",
+                                }}
+                            >
+                                {t("about.design")}
+                            </h4>
+                            <div className="flex flex-wrap gap-3">
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="Figma">
+                                    <StackIcon name="figma" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="Adobe Illustrator">
+                                    <StackIcon name="adobeillustrator" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="Adobe Photoshop">
+                                    <StackIcon name="ps" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                                <div className="w-8 h-8 md:grayscale md:hover:grayscale-0 transition-all duration-300 cursor-pointer" title="Canva">
+                                    <StackIcon name="canva" variant={isDarkMode ? "dark" : "light"} />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

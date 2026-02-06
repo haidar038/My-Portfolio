@@ -137,6 +137,11 @@ export default {
         designLoverDesc: "Keindahan bertemu fungsionalitas",
         coffeePowered: "Bertenaga Kopi",
         coffeePoweredDesc: "Didorong oleh kafein dan keingintahuan",
+        skills: "Keahlian & Tech Stack",
+        skillsDesc: "Alat dan teknologi yang saya gunakan",
+        frontend: "Frontend",
+        backend: "Backend & Tools",
+        design: "Desain",
     },
 
     // JourneyWindow

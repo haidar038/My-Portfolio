@@ -136,6 +136,11 @@ export default {
         designLoverDesc: "Beauty meets functionality",
         coffeePowered: "Coffee Powered",
         coffeePoweredDesc: "Fueled by caffeine and curiosity",
+        skills: "Skills & Tech Stack",
+        skillsDesc: "Tools and technologies I use to bring ideas to life",
+        frontend: "Frontend",
+        backend: "Backend & Tools",
+        design: "Design",
     },
 
     // JourneyWindow
