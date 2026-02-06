@@ -14,15 +14,15 @@ export const WorkWindow = () => {
         {
             id: "graphic-design" as Category,
             name: t("work.graphicDesign"),
-            iconLight: "/src/assets/icons/Brush.png",
-            iconDark: "/src/assets/icons/dark-theme-icons/BrushDark.png",
+            iconLight: "@/src/assets/icons/Brush.png",
+            iconDark: "@/src/assets/icons/dark-theme-icons/BrushDark.png",
             description: t("work.graphicDesignDesc"),
         },
         {
             id: "web-development" as Category,
             name: t("work.webDevelopment"),
-            iconLight: "/src/assets/icons/WebDev.png",
-            iconDark: "/src/assets/icons/dark-theme-icons/WebDevDark.png",
+            iconLight: "@/src/assets/icons/WebDev.png",
+            iconDark: "@/src/assets/icons/dark-theme-icons/WebDevDark.png",
             description: t("work.webDevelopmentDesc"),
         },
     ];
